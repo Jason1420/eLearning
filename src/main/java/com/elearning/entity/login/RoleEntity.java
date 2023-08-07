@@ -1,6 +1,5 @@
 package com.elearning.entity.login;
 
-import com.elearning.helper.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,9 +15,9 @@ public class RoleEntity {
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Role name;
+    private String name;
 
-    public RoleEntity(Role name) {
+    public RoleEntity(String name) {
         this.name = name;
     }
 }

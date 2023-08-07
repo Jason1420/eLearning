@@ -25,6 +25,7 @@ public class UserEntity {
     private String email;
     private Boolean locked = false;
     private Boolean enabled = false;
+    private Boolean changedPassword = false;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
