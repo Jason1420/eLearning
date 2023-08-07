@@ -3,6 +3,8 @@ package com.elearning.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Set;
+
 @Entity
 @Table(name="department")
 @Data
@@ -13,8 +15,8 @@ public class DepartmentEntity {
     @Column(name="name")
     private String name;
 
-//    @OneToMany(mappedBy = "department")
-//    private Set<TeacherEntity> teachers;
-//    @OneToMany(mappedBy = "department")
-//    private Set<StudentEntity> students;
+    @OneToMany(mappedBy = "department")
+    private Set<TeacherEntity> teachers;
+    @OneToMany(mappedBy = "department")
+    private Set<StudentEntity> students;
 }

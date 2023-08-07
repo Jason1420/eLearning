@@ -1,10 +1,12 @@
 package com.elearning.entity;
 
+import com.elearning.entity.sub.ResultEntity;
 import com.elearning.helper.ExamType;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name="exam")
@@ -17,7 +19,7 @@ public class ExamEntity {
     private String name;
     @Column(name ="type")
     private ExamType type;
-    @Column(name ="created_date")
-    private Date created_date;
+    @OneToMany(mappedBy = "exam")
+    private Set<ResultEntity> results;
 
 }

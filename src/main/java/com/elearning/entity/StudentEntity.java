@@ -1,11 +1,14 @@
 package com.elearning.entity;
 
+import com.elearning.entity.sub.EnrollEntity;
+import com.elearning.entity.sub.ResultEntity;
 import com.elearning.helper.Gender;
 import com.elearning.helper.StudentStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name="student")
@@ -38,6 +41,10 @@ public class StudentEntity {
     private StudentStatus status;
 
     @ManyToOne
-//    @JoinColumn(name = "department",referencedColumnName = "id")
+    @JoinColumn(name = "department",referencedColumnName = "id")
     private DepartmentEntity department;
+    @OneToMany(mappedBy = "student")
+    private Set<ResultEntity> results;
+    @OneToMany(mappedBy = "student")
+    private Set<EnrollEntity> enrolls;
 }

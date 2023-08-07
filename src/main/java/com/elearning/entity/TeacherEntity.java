@@ -1,10 +1,12 @@
 package com.elearning.entity;
 
+import com.elearning.entity.sub.ClassEntity;
 import com.elearning.helper.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name="teacher")
@@ -27,7 +29,9 @@ public class TeacherEntity {
     private String phoneNumber;
 
     @ManyToOne
-//    @JoinColumn(name = "department",referencedColumnName = "id")
+    @JoinColumn(name = "department",referencedColumnName = "id")
     private DepartmentEntity department;
+    @OneToMany(mappedBy = "teacher")
+    private Set<ClassEntity> classes;
 
 }
