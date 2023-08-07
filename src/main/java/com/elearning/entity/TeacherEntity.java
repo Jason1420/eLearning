@@ -1,5 +1,6 @@
 package com.elearning.entity;
 
+import com.elearning.entity.login.UserEntity;
 import com.elearning.entity.sub.ClassEntity;
 import com.elearning.helper.Gender;
 import jakarta.persistence.*;
@@ -33,5 +34,6 @@ public class TeacherEntity {
     private DepartmentEntity department;
     @OneToMany(mappedBy = "teacher")
     private Set<ClassEntity> classes;
-
+    @OneToOne(mappedBy = "teacher")
+    private UserEntity account;
 }

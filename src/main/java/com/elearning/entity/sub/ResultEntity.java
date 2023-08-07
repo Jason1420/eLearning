@@ -12,12 +12,14 @@ public class ResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "student",referencedColumnName = "id")
     private StudentEntity student;
     @ManyToOne
     @JoinColumn(name = "exam",referencedColumnName = "id")
     private ExamEntity exam;
+
     private double score;
 
 }

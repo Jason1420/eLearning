@@ -5,7 +5,6 @@ import com.elearning.helper.ExamType;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -19,6 +18,7 @@ public class ExamEntity {
     private String name;
     @Column(name ="type")
     private ExamType type;
+
     @OneToMany(mappedBy = "exam")
     private Set<ResultEntity> results;
 

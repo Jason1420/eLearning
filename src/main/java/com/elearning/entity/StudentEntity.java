@@ -1,5 +1,6 @@
 package com.elearning.entity;
 
+import com.elearning.entity.login.UserEntity;
 import com.elearning.entity.sub.EnrollEntity;
 import com.elearning.entity.sub.ResultEntity;
 import com.elearning.helper.Gender;
@@ -47,4 +48,6 @@ public class StudentEntity {
     private Set<ResultEntity> results;
     @OneToMany(mappedBy = "student")
     private Set<EnrollEntity> enrolls;
+    @OneToOne(mappedBy = "student")
+    private UserEntity account;
 }

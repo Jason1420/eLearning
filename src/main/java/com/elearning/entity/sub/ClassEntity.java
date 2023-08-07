@@ -16,6 +16,7 @@ public class ClassEntity {
     private Long id;
     @Column(unique = true)
     private String name;
+
     @ManyToOne
     @JoinColumn(name = "subject",referencedColumnName = "id")
     private SubjectEntity subject;
