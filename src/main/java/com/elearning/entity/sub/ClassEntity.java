@@ -23,6 +23,6 @@ public class ClassEntity {
     @ManyToOne
     @JoinColumn(name = "teacher",referencedColumnName = "id")
     private TeacherEntity teacher;
-    @OneToMany(mappedBy = "clas ")
+    @OneToMany(mappedBy = "clas")
     private Set<EnrollEntity> enrolls;
 }
