@@ -2,13 +2,17 @@ package com.elearning.entity;
 
 import com.elearning.entity.sub.ClassEntity;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Set;
 
 @Entity
 @Table(name="subject")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SubjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

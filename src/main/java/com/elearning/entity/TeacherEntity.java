@@ -4,7 +4,9 @@ import com.elearning.entity.login.UserEntity;
 import com.elearning.entity.sub.ClassEntity;
 import com.elearning.helper.Gender;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.Set;
@@ -12,6 +14,7 @@ import java.util.Set;
 @Entity
 @Table(name="teacher")
 @Data
+@NoArgsConstructor @AllArgsConstructor
 public class TeacherEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

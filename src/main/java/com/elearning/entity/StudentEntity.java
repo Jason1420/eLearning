@@ -6,7 +6,9 @@ import com.elearning.entity.sub.ResultEntity;
 import com.elearning.helper.Gender;
 import com.elearning.helper.StudentStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 import java.util.Set;
@@ -14,6 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name="student")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
