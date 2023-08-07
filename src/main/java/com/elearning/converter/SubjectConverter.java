@@ -1,8 +1,6 @@
 package com.elearning.converter;
 
-import com.elearning.dto.DepartmentDTO;
 import com.elearning.dto.SubjectDTO;
-import com.elearning.entity.DepartmentEntity;
 import com.elearning.entity.SubjectEntity;
 import org.springframework.stereotype.Component;
 

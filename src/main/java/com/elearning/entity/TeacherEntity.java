@@ -29,6 +29,11 @@ public class TeacherEntity {
     @Column(name = "phone_number", length = 11)
     private String phoneNumber;
 
+    public TeacherEntity(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @ManyToOne
     @JoinColumn(name = "department",referencedColumnName = "id")
     private DepartmentEntity department;

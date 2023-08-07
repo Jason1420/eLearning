@@ -2,7 +2,6 @@ package com.elearning.service.impl;
 
 import com.elearning.converter.SubjectConverter;
 import com.elearning.dto.SubjectDTO;
-import com.elearning.entity.DepartmentEntity;
 import com.elearning.entity.SubjectEntity;
 import com.elearning.repository.SubjectRepository;
 import com.elearning.service.SubjectService;
@@ -19,6 +18,7 @@ import java.util.List;
 public class SubjectServiceImpl implements SubjectService {
     private final SubjectRepository subjectRepository;
     private final SubjectConverter subjectConverter;
+
     @Override
     public String addSubject(SubjectDTO dto) {
         subjectRepository.save(subjectConverter.toEntity(dto));
@@ -27,10 +27,12 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public String updateSubject(Long id, String name) {
+    public String updateSubject(Long id, SubjectDTO dto) {
         SubjectEntity entity = subjectRepository.findOneById(id);
-        if(entity != null){
-            entity.setName(name);
+        if (entity != null) {
+            entity.setName(dto.getName());
+            entity.setCode(dto.getCode());
+            entity.setCredit(dto.getCredit());
             subjectRepository.save(entity);
             return "subject id = " + entity.getId() + " was updated successfully";
         }

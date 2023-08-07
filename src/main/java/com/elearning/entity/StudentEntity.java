@@ -41,6 +41,12 @@ public class StudentEntity {
     @Column(name = "status")
     private StudentStatus status;
 
+    public StudentEntity(String code, String firstName, String lastName) {
+        this.code = code;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     @ManyToOne
     @JoinColumn(name = "department",referencedColumnName = "id")
     private DepartmentEntity department;

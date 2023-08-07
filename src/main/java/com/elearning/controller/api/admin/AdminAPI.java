@@ -2,11 +2,13 @@ package com.elearning.controller.api.admin;
 
 import com.elearning.dto.DepartmentDTO;
 import com.elearning.dto.SubjectDTO;
+import com.elearning.dto.sub.helper.CreateClassDTO;
 import com.elearning.entity.DepartmentEntity;
 import com.elearning.entity.SubjectEntity;
+import com.elearning.entity.sub.ClassEntity;
+import com.elearning.service.ClassService;
 import com.elearning.service.DepartmentService;
 import com.elearning.service.SubjectService;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,7 @@ import java.util.List;
 public class AdminAPI {
     private final DepartmentService departmentService;
     private final SubjectService subjectService;
+    private final ClassService classService;
 
     /* CRUD Department */
     @PostMapping("/department")
@@ -46,8 +49,8 @@ public class AdminAPI {
         return subjectService.addSubject(dto);
     }
     @PutMapping("/subject/{id}")
-    public String updateSubject(@PathVariable Long id, @RequestBody String name){
-        return subjectService.updateSubject(id, name);
+    public String updateSubject(@PathVariable Long id, @RequestBody SubjectDTO dto){
+        return subjectService.updateSubject(id, dto);
     }
     @DeleteMapping("/subject/{id}")
     public String deleteSubject(@PathVariable Long id){
@@ -60,5 +63,26 @@ public class AdminAPI {
     @GetMapping("/subject")
     public List<SubjectEntity> showAllSubject(){
         return subjectService.showAllSubject();
+    }
+    /* CRUD Class */
+    @PostMapping("/class")
+    public String addClass(@RequestBody CreateClassDTO dto){
+        return classService.addClass(dto);
+    }
+    @PutMapping("/class/{id}")
+    public String updateClass(@PathVariable Long id, @RequestBody CreateClassDTO dto){
+        return classService.updateClass(id, dto);
+    }
+    @DeleteMapping("/class/{id}")
+    public String deleteClass(@PathVariable Long id){
+        return classService.deleteClass(id);
+    }
+    @GetMapping("/class/{id}")
+    public ClassEntity showClass(@PathVariable Long id){
+        return classService.showClass(id);
+    }
+    @GetMapping("/class")
+    public List<ClassEntity> showAllClass(){
+        return classService.showAllClass();
     }
 }

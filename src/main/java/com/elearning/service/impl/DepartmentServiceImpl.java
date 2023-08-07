@@ -5,7 +5,6 @@ import com.elearning.dto.DepartmentDTO;
 import com.elearning.entity.DepartmentEntity;
 import com.elearning.repository.DepartmentRepository;
 import com.elearning.service.DepartmentService;
-import jakarta.persistence.Entity;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
