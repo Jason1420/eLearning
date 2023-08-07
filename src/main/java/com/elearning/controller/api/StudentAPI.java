@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 public class StudentAPI {
     private final StudentService studentService;
+
     @PutMapping("/{id}")
     public String updateStudent(@PathVariable Long id, @RequestBody StudentDTO dto){
         return studentService.updateStudent(id, dto);

@@ -29,7 +29,6 @@ public class StudentDTO {
     private int totalCredit;
     private StudentStatus status;
 
-
     private DepartmentEntity department;
     private Set<ResultDTO> results;
     private Set<EnrollDTO> enrolls;

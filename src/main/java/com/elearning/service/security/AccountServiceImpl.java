@@ -13,6 +13,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional
 @AllArgsConstructor
@@ -46,5 +48,10 @@ public class AccountServiceImpl implements AccountService {
         return savedEntity.getUsername() + " was registered with password: " + savedEntity.getPassword() +
                 "\nyour student id: " + savedEntity.getTeacher().getId() +
                 ", please update your information and change your password!";
+    }
+
+    @Override
+    public List<UserEntity> showAllUser() {
+        return userRepository.findAll();
     }
 }

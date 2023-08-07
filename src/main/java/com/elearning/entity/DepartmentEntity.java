@@ -19,6 +19,10 @@ public class DepartmentEntity {
     @Column(name="name")
     private String name;
 
+    public DepartmentEntity(String name) {
+        this.name = name;
+    }
+
     @OneToMany(mappedBy = "department")
     private Set<TeacherEntity> teachers;
     @OneToMany(mappedBy = "department")

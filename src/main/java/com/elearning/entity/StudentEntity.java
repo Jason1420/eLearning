@@ -5,6 +5,8 @@ import com.elearning.entity.sub.EnrollEntity;
 import com.elearning.entity.sub.ResultEntity;
 import com.elearning.helper.Gender;
 import com.elearning.helper.StudentStatus;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +20,9 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +49,19 @@ public class StudentEntity {
     private int totalCredit;
     @Column(name = "status")
     private StudentStatus status;
+
+    public StudentEntity(String code, String firstName, String lastName,
+                         Date dateOfBirth, Gender gender, String email,
+                         String phoneNumber, String address) {
+        this.code = code;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
 
     public StudentEntity(String code, String firstName, String lastName) {
         this.code = code;

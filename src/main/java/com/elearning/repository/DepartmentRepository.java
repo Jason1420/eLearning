@@ -7,4 +7,7 @@ public interface DepartmentRepository extends JpaRepository<DepartmentEntity, Lo
     DepartmentEntity findOneById(Long id);
 
     DepartmentEntity findByName(String name);
+
+    DepartmentEntity findOneByName(String department);
+
 }
