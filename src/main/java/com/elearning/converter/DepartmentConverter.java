@@ -6,16 +6,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DepartmentConverter {
-    public DepartmentDTO toDTO(DepartmentEntity entity){
-        DepartmentDTO dto = new DepartmentDTO();
-        dto.setId(entity.getId());
-        dto.setName(entity.getName());
-        return dto;
+    public DepartmentDTO toDTO(DepartmentEntity entity) {
+        return new DepartmentDTO(entity.getId(),
+                entity.getName());
     }
-    public DepartmentEntity toEntity(DepartmentDTO dto){
-        DepartmentEntity entity = new DepartmentEntity();
-        entity.setId(dto.getId());
-        entity.setName(dto.getName());
-        return entity;
+
+    public DepartmentEntity toEntity(DepartmentDTO dto) {
+        return new DepartmentEntity(dto.getId(),
+                dto.getName());
     }
 }

@@ -1,18 +1,17 @@
 package com.elearning.service;
 
 import com.elearning.dto.DepartmentDTO;
-import com.elearning.entity.DepartmentEntity;
 
 import java.util.List;
 
 public interface DepartmentService {
-    String addDepartment(DepartmentDTO dto);
+    DepartmentDTO addDepartment(DepartmentDTO dto);
 
-    String updateDepartment(Long id, String name);
+    DepartmentDTO updateDepartment(Long id, DepartmentDTO dto);
 
-    String deleteDepartment(Long id);
+    void deleteDepartment(Long id);
 
-    DepartmentEntity showDepartment(Long id);
+    DepartmentDTO findOneDepartment(Long id);
 
-    List<DepartmentEntity> showAllDepartment();
+    List<DepartmentDTO> findAllDepartment();
 }
