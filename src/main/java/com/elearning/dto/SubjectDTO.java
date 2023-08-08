@@ -16,5 +16,12 @@ public class SubjectDTO {
     private String code;
     private int credit;
 
+    public SubjectDTO(Long id, String name, String code, int credit) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.credit = credit;
+    }
+
     private Set<ClassDTO> classes;
 }

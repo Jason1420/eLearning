@@ -2,6 +2,8 @@ package com.elearning.controller.api.crud;
 
 import com.elearning.dto.SubjectDTO;
 import com.elearning.entity.SubjectEntity;
+import com.elearning.exception.helper.Result;
+import com.elearning.exception.helper.StatusCode;
 import com.elearning.service.SubjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,29 +16,33 @@ import java.util.List;
 public class SubjectAPI {
     private final SubjectService subjectService;
 
-    /* CRUD Subject */
     @PostMapping
-    public String addSubject(@RequestBody SubjectDTO dto) {
-        return subjectService.addSubject(dto);
+    public Result addSubject(@RequestBody SubjectDTO dto) {
+        SubjectDTO savedDto = subjectService.addSubject(dto);
+        return new Result(true, StatusCode.SUCCESS,"Add success",savedDto);
     }
 
     @PutMapping("/{id}")
-    public String updateSubject(@PathVariable Long id, @RequestBody SubjectDTO dto) {
-        return subjectService.updateSubject(id, dto);
+    public Result updateSubject(@PathVariable Long id, @RequestBody SubjectDTO dto) {
+        SubjectDTO savedDto = subjectService.updateSubject(id, dto);
+        return new Result(true, StatusCode.SUCCESS,"Update success",savedDto);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteSubject(@PathVariable Long id) {
-        return subjectService.deleteSubject(id);
+    public Result deleteSubject(@PathVariable Long id) {
+        subjectService.deleteSubject(id);
+        return new Result(true, StatusCode.SUCCESS,"Delete success");
     }
 
     @GetMapping("/{id}")
-    public SubjectEntity showSubject(@PathVariable Long id) {
-        return subjectService.showSubject(id);
+    public Result findOneSubject(@PathVariable Long id) {
+        SubjectDTO dto = subjectService.findOneSubject(id);
+        return new Result(true, StatusCode.SUCCESS,"Find one success", dto);
     }
 
     @GetMapping
-    public List<SubjectEntity> showAllSubject() {
-        return subjectService.showAllSubject();
+    public Result findAllSubject() {
+        List<SubjectDTO> listDTO = subjectService.findAllSubject();
+        return new Result(true, StatusCode.SUCCESS,"Find all success", listDTO);
     }
 }

@@ -18,12 +18,19 @@ public class SubjectEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name", unique = true)
+    @Column(name = "name")
     private String name;
     @Column(name = "code", unique = true)
     private String code;
     @Column(name = "credit")
     private int credit;
+
+    public SubjectEntity(Long id, String name, String code, int credit) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+        this.credit = credit;
+    }
 
     @OneToMany(mappedBy = "subject")
     @JsonIgnore

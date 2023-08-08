@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface SubjectService {
 
-    String addSubject(SubjectDTO dto);
+    SubjectDTO addSubject(SubjectDTO dto);
 
-    String updateSubject(Long id, SubjectDTO dto);
+    SubjectDTO updateSubject(Long id, SubjectDTO dto);
 
-    String deleteSubject(Long id);
+    void deleteSubject(Long id);
 
-    SubjectEntity showSubject(Long id);
+    SubjectDTO findOneSubject(Long id);
 
-    List<SubjectEntity> showAllSubject();
+    List<SubjectDTO> findAllSubject();
 }
