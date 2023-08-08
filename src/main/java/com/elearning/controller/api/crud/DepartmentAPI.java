@@ -15,7 +15,6 @@ import java.util.List;
 public class DepartmentAPI {
     private final DepartmentService departmentService;
 
-    /* CRUD Department */
     @PostMapping
     public Result addDepartment(@RequestBody DepartmentDTO dto) {
         DepartmentDTO savedDepartment = departmentService.addDepartment(dto);
