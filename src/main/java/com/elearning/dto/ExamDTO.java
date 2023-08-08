@@ -16,6 +16,7 @@ public class ExamDTO {
     private Long id;
     private String name;
     private ExamType type;
-    private Set<ResultDTO> results;
     private ClassDTO clas;
+//    private Set<ResultDTO> results;
+
 }

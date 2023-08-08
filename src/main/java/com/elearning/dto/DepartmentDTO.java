@@ -12,8 +12,6 @@ import java.util.Set;
 public class DepartmentDTO {
     private Long id;
     private String name;
-    private Set<TeacherDTO> teachers;
-    private Set<StudentDTO> students;
 
     public DepartmentDTO(String name) {
         this.name = name;
@@ -23,4 +21,7 @@ public class DepartmentDTO {
         this.id = id;
         this.name = name;
     }
+
+    //    private Set<TeacherDTO> teachers;
+//    private Set<StudentDTO> students;
 }

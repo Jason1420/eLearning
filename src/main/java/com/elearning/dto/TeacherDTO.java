@@ -23,6 +23,6 @@ public class TeacherDTO {
     private String phoneNumber;
 
     private DepartmentDTO department;
-    private Set<ClassDTO> classes;
     private UserDTO account;
+//    private Set<ClassDTO> classes;
 }

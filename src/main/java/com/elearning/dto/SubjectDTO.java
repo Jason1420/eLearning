@@ -22,6 +22,5 @@ public class SubjectDTO {
         this.code = code;
         this.credit = credit;
     }
-
-    private Set<ClassDTO> classes;
+//    private Set<ClassDTO> classes;
 }

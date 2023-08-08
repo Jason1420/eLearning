@@ -30,7 +30,7 @@ public class StudentDTO {
     private StudentStatus status;
 
     private DepartmentDTO department;
-    private Set<ResultDTO> results;
-    private Set<EnrollDTO> enrolls;
     private UserDTO account;
+    //    private Set<ResultDTO> results;
+//    private Set<EnrollDTO> enrolls;
 }

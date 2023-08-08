@@ -13,7 +13,7 @@ public class UserDTO {
 
     private String password;
     private String email;
-    private List<RoleDTO> roles;
+//    private List<RoleDTO> roles;
     private TeacherDTO teacher;
     private StudentDTO student;
 }
