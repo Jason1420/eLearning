@@ -1,16 +1,15 @@
 package com.elearning.service;
 
 import com.elearning.dto.StudentDTO;
-import com.elearning.entity.StudentEntity;
 
 import java.util.List;
 
 public interface StudentService {
-    String updateStudent(Long id, StudentDTO dto);
+    StudentDTO updateStudent(Long id, StudentDTO dto);
 
-    String deleteStudent(Long id);
+    void deleteStudent(Long id);
 
-    StudentEntity showStudent(Long id);
+    StudentDTO findOneStudent(Long id);
 
-    List<StudentEntity> showAllStudent();
+    List<StudentDTO> findAllStudent();
 }

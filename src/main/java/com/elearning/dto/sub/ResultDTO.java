@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ResultDTO {
     private Long id;
-    private StudentDTO student;
     private ExamDTO exam;
+    private StudentDTO student;
     private double score;
 }

@@ -1,13 +1,10 @@
 package com.elearning.dto;
 
 import com.elearning.dto.sub.ClassDTO;
-import com.elearning.dto.sub.ResultDTO;
 import com.elearning.helper.ExamType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -17,6 +14,17 @@ public class ExamDTO {
     private String name;
     private ExamType type;
     private ClassDTO clas;
-//    private Set<ResultDTO> results;
+
+    public ExamDTO(String name, ExamType type) {
+        this.name = name;
+        this.type = type;
+    }
+
+    public ExamDTO(Long id, String name, ExamType type) {
+        this.id = id;
+        this.name = name;
+        this.type = type;
+    }
+    //    private Set<ResultDTO> results;
 
 }

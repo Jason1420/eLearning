@@ -1,18 +1,18 @@
 package com.elearning.service;
 
 import com.elearning.dto.helper.CreateClassDTO;
-import com.elearning.entity.sub.ClassEntity;
+import com.elearning.dto.sub.ClassDTO;
 
 import java.util.List;
 
 public interface ClassService {
-    String addClass(CreateClassDTO dto);
+    ClassDTO addClass(CreateClassDTO dto);
 
-    String updateClass(Long id, CreateClassDTO dto);
+    ClassDTO updateClass(Long id, CreateClassDTO dto);
 
-    String deleteClass(Long id);
+    void deleteClass(Long id);
 
-    ClassEntity showClass(Long id);
+    ClassDTO findOneClass(Long id);
 
-    List<ClassEntity> showAllClass();
+    List<ClassDTO> findAllClass();
 }

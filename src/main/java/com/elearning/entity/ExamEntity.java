@@ -31,6 +31,11 @@ public class ExamEntity {
         this.clas = clas;
     }
 
+    public ExamEntity(String name, ExamType type) {
+        this.name = name;
+        this.type = type;
+    }
+
     @OneToMany(mappedBy = "exam")
     @JsonIgnore
     private Set<ResultEntity> results;

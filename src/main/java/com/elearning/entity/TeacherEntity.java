@@ -39,6 +39,31 @@ public class TeacherEntity {
         this.lastName = lastName;
     }
 
+    public TeacherEntity(String firstName, String lastName,
+                         Date dateOfBirth, Gender gender, String email,
+                         String phoneNumber, DepartmentEntity department) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.department = department;
+    }
+
+    public TeacherEntity(Long id, String firstName, String lastName,
+                         Date dateOfBirth, Gender gender, String email,
+                         String phoneNumber, DepartmentEntity department) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.department = department;
+    }
+
     @ManyToOne
     @JoinColumn(name = "department_id", referencedColumnName = "id")
     private DepartmentEntity department;

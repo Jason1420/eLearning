@@ -27,6 +27,12 @@ public class ExceptionHandlerAdvice {
         return new Result(false, StatusCode.UNAUTHORIZED, ex.getMessage());
     }
 
+    @ExceptionHandler(Exception400.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    Result handlerException400(Exception400 ex, WebRequest req) {
+        return new Result(false, StatusCode.INVALID_ARGUMENT, ex.getMessage());
+    }
+
     @ExceptionHandler(Exception403.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     Result handlerException403(Exception404 ex, WebRequest req) {

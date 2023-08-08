@@ -9,37 +9,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserConverter {
     public UserDTO toDTO(UserEntity entity) {
-        UserDTO dto = new UserDTO();
-        if (entity.getId() != null) {
-            dto.setId(entity.getId());
-        }
-        dto.setUsername(entity.getUsername());
-        dto.setPassword(entity.getPassword());
-        dto.setEmail(entity.getEmail());
-        return dto;
+        return new UserDTO((entity.getId() != null) ? entity.getId() : null,
+                entity.getUsername(),
+                entity.getPassword(),
+                entity.getEmail());
     }
 
     public UserEntity toEntity(UserDTO dto) {
-        UserEntity entity = new UserEntity();
-        entity.setUsername(dto.getUsername());
-        entity.setPassword(dto.getPassword());
-        entity.setEmail(dto.getEmail());
-        if (dto.getStudent() != null) {
-            entity.setStudent(new StudentEntity(dto.getStudent().getCode(), dto.getStudent().getFirstName(),
-                    dto.getStudent().getLastName()));
-        }
-        if (dto.getTeacher() != null) {
-            entity.setTeacher(new TeacherEntity(dto.getTeacher().getFirstName(),
-                    dto.getTeacher().getLastName()));
-        }
-        return entity;
-    }
-
-    public UserEntity toEntity(UserDTO dto, UserEntity oldEntity) {
-        oldEntity.setUsername(dto.getUsername());
-        oldEntity.setPassword(dto.getPassword());
-        oldEntity.setEmail(dto.getEmail());
-        return oldEntity;
+        return new UserEntity(dto.getUsername(),
+                dto.getPassword(),
+                dto.getEmail(),
+                (dto.getStudent() != null) ?
+                        new StudentEntity(dto.getStudent().getCode(), dto.getStudent().getFirstName(),
+                                dto.getStudent().getLastName()) : null,
+                (dto.getTeacher() != null) ?
+                        new TeacherEntity(dto.getTeacher().getFirstName(),
+                                dto.getTeacher().getLastName()) : null);
     }
 
     public boolean checkPassword(UserEntity entity, String currentPassword) {

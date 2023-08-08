@@ -1,18 +1,21 @@
 package com.elearning.service;
 
 import com.elearning.dto.helper.ResultExamDTO;
+import com.elearning.dto.sub.ResultDTO;
 import com.elearning.entity.sub.ResultEntity;
 
 import java.util.List;
 
 public interface ResultService {
-    String markExam(ResultExamDTO dto);
+    ResultDTO markExam(ResultExamDTO dto);
 
-    String updateScoreExam(Long id, ResultExamDTO dto);
+    ResultDTO updateScoreExam(Long id, ResultExamDTO dto);
 
-    String deleteResult(Long id);
+    void deleteResult(Long id);
 
-    List<ResultEntity> viewResultOfExam(Long examId);
+    List<ResultDTO> viewResultOfExam(Long examId);
 
-    List<ResultEntity> viewResultOfStudent(Long studentId);
+    List<ResultDTO> viewResultOfStudent(Long studentId);
+
+    List<ResultDTO> findAllResult();
 }

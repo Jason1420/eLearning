@@ -60,6 +60,35 @@ public class StudentEntity {
         this.address = address;
     }
 
+    public StudentEntity(String code, String firstName, String lastName,
+                         Date dateOfBirth, Gender gender, String email, String phoneNumber,
+                         String address, DepartmentEntity department) {
+        this.code = code;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.department = department;
+    }
+
+    public StudentEntity(Long id, String code, String firstName, String lastName,
+                         Date dateOfBirth, Gender gender, String email, String phoneNumber,
+                         String address, DepartmentEntity department) {
+        this.id = id;
+        this.code = code;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.department = department;
+    }
+
     public StudentEntity(String code, String firstName, String lastName) {
         this.code = code;
         this.firstName = firstName;

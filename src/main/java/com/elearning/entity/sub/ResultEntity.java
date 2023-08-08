@@ -22,12 +22,11 @@ public class ResultEntity {
         this.exam = exam;
         this.score = score;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
-    private StudentEntity student;
     @ManyToOne
     @JoinColumn(name = "exam_id", referencedColumnName = "id")
     private ExamEntity exam;
+    @ManyToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    private StudentEntity student;
     private double score;
 }

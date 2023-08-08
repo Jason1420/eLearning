@@ -1,8 +1,6 @@
 package com.elearning.dto;
 
 import com.elearning.dto.login.UserDTO;
-import com.elearning.dto.sub.EnrollDTO;
-import com.elearning.dto.sub.ResultDTO;
 import com.elearning.helper.Gender;
 import com.elearning.helper.StudentStatus;
 import lombok.AllArgsConstructor;
@@ -10,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -28,6 +25,20 @@ public class StudentDTO {
     private double GPA;
     private int totalCredit;
     private StudentStatus status;
+
+    public StudentDTO(Long id, String code, String firstName, String lastName, Date dateOfBirth, Gender gender,
+                      String email, String phoneNumber, String address, DepartmentDTO department) {
+        this.id = id;
+        this.code = code;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.department = department;
+    }
 
     private DepartmentDTO department;
     private UserDTO account;

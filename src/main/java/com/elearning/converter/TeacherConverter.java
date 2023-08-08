@@ -13,43 +13,37 @@ public class TeacherConverter {
     private final DepartmentConverter departmentConverter;
 
     public TeacherDTO toDTO(TeacherEntity entity) {
-        TeacherDTO dto = new TeacherDTO();
-        dto.setFirstName(entity.getFirstName());
-        dto.setLastName(entity.getLastName());
-        dto.setDateOfBirth(entity.getDateOfBirth());
-        dto.setGender(entity.getGender());
-        dto.setEmail(entity.getEmail());
-        dto.setPhoneNumber(entity.getPhoneNumber());
-        if (entity.getDepartment() != null) {
-            dto.setDepartment(departmentConverter.toDTO(entity.getDepartment()));
-        }
-        return dto;
+        return new TeacherDTO((entity.getId() != null) ? entity.getId() : null,
+                entity.getFirstName(),
+                entity.getLastName(),
+                entity.getDateOfBirth(),
+                entity.getGender(),
+                entity.getEmail(),
+                entity.getPhoneNumber(),
+                (entity.getDepartment() != null) ?
+                        departmentConverter.toDTO(entity.getDepartment()) : null);
     }
 
     public TeacherEntity toEntity(TeacherDTO dto) {
-        TeacherEntity entity = new TeacherEntity();
-        entity.setFirstName(entity.getFirstName());
-        entity.setLastName(entity.getLastName());
-        entity.setDateOfBirth(entity.getDateOfBirth());
-        entity.setGender(entity.getGender());
-        entity.setEmail(entity.getEmail());
-        entity.setPhoneNumber(entity.getPhoneNumber());
-        if (dto.getDepartment() != null) {
-            entity.setDepartment(departmentConverter.toEntity(dto.getDepartment()));
-        }
-        return entity;
+        return new TeacherEntity(dto.getFirstName(),
+                dto.getLastName(),
+                dto.getDateOfBirth(),
+                dto.getGender(),
+                dto.getEmail(),
+                dto.getPhoneNumber(),
+                (dto.getDepartment() != null) ?
+                        departmentRepository.findOneByName(dto.getDepartment().getName()) : null);
     }
 
     public TeacherEntity toEntity(TeacherDTO dto, TeacherEntity oldEntity) {
-        oldEntity.setFirstName(dto.getFirstName());
-        oldEntity.setLastName(dto.getLastName());
-        oldEntity.setDateOfBirth(dto.getDateOfBirth());
-        oldEntity.setGender(dto.getGender());
-        oldEntity.setEmail(dto.getEmail());
-        oldEntity.setPhoneNumber(dto.getPhoneNumber());
-        if (dto.getDepartment() != null) {
-            oldEntity.setDepartment(departmentRepository.findOneByName(dto.getDepartment().getName()));
-        }
-        return oldEntity;
+        return new TeacherEntity(oldEntity.getId(),
+                dto.getFirstName(),
+                dto.getLastName(),
+                dto.getDateOfBirth(),
+                dto.getGender(),
+                dto.getEmail(),
+                dto.getPhoneNumber(),
+                (dto.getDepartment() != null) ?
+                        departmentRepository.findOneByName(dto.getDepartment().getName()) : null);
     }
 }

@@ -1,14 +1,16 @@
 package com.elearning.service;
 
 import com.elearning.dto.helper.EnrollClassDTO;
+import com.elearning.dto.sub.EnrollDTO;
 import com.elearning.entity.sub.EnrollEntity;
 
 import java.util.List;
 
 public interface EnrollService {
-    String enrollClass(EnrollClassDTO dto);
+    EnrollDTO enrollClass(EnrollClassDTO dto);
 
-    String deleteEnrolledClass(Long id);
+    void deleteEnrolledClass(Long id);
+    EnrollDTO findOneEnrolledClass(Long id);
 
-    List<EnrollEntity> showAllEnrolledClass();
+    List<EnrollDTO> findAllEnrolledClass();
 }

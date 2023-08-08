@@ -1,7 +1,9 @@
 package com.elearning.controller.api.crud;
 
 import com.elearning.dto.helper.CreateClassDTO;
-import com.elearning.entity.sub.ClassEntity;
+import com.elearning.dto.sub.ClassDTO;
+import com.elearning.exception.helper.Result;
+import com.elearning.exception.helper.StatusCode;
 import com.elearning.service.ClassService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -16,27 +18,32 @@ public class ClassAPI {
 
     /* CRUD Class */
     @PostMapping
-    public String addClass(@RequestBody CreateClassDTO dto) {
-        return classService.addClass(dto);
+    public Result addClass(@RequestBody CreateClassDTO dto) {
+        ClassDTO savedDTO = classService.addClass(dto);
+        return new Result(true, StatusCode.SUCCESS, "Add success", savedDTO);
     }
 
     @PutMapping("/{id}")
-    public String updateClass(@PathVariable Long id, @RequestBody CreateClassDTO dto) {
-        return classService.updateClass(id, dto);
+    public Result updateClass(@PathVariable Long id, @RequestBody CreateClassDTO dto) {
+        ClassDTO savedDTO = classService.updateClass(id, dto);
+        return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
     }
 
     @DeleteMapping("/{id}")
-    public String deleteClass(@PathVariable Long id) {
-        return classService.deleteClass(id);
+    public Result deleteClass(@PathVariable Long id) {
+        classService.deleteClass(id);
+        return new Result(true, StatusCode.SUCCESS, "Delete success");
     }
 
     @GetMapping("/{id}")
-    public ClassEntity showClass(@PathVariable Long id) {
-        return classService.showClass(id);
+    public Result findOneClass(@PathVariable Long id) {
+        ClassDTO dto = classService.findOneClass(id);
+        return new Result(true, StatusCode.SUCCESS, "Find one success", dto);
     }
 
     @GetMapping
-    public List<ClassEntity> showAllClass() {
-        return classService.showAllClass();
+    public Result findAllClass() {
+        List<ClassDTO> listDTO = classService.findAllClass();
+        return new Result(true, StatusCode.SUCCESS, "Find all success", listDTO);
     }
 }

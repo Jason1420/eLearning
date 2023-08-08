@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SubjectConverter {
     public SubjectDTO toDTO(SubjectEntity entity) {
-        return new SubjectDTO(entity.getId(),
+        return new SubjectDTO((entity.getId() != null) ? entity.getId() : null,
                 entity.getName(),
                 entity.getCode(),
                 entity.getCredit());

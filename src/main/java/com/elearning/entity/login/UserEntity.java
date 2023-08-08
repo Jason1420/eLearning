@@ -33,6 +33,15 @@ public class UserEntity {
     private Boolean enabled = false;
     private Boolean changedPassword = false;
 
+    public UserEntity(String username, String password, String email,
+                      StudentEntity student, TeacherEntity teacher) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.student = student;
+        this.teacher = teacher;
+    }
+
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
@@ -41,9 +50,10 @@ public class UserEntity {
     )
     private Set<RoleEntity> roles = new HashSet<>();
     @OneToOne
-    @JoinColumn(name = "teacher_id")
-    private TeacherEntity teacher;
-    @OneToOne
     @JoinColumn(name = "student_id")
     private StudentEntity student;
+    @OneToOne
+    @JoinColumn(name = "teacher_id")
+    private TeacherEntity teacher;
+
 }

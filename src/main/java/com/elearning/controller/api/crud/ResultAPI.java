@@ -1,7 +1,10 @@
 package com.elearning.controller.api.crud;
 
 import com.elearning.dto.helper.ResultExamDTO;
+import com.elearning.dto.sub.ResultDTO;
 import com.elearning.entity.sub.ResultEntity;
+import com.elearning.exception.helper.Result;
+import com.elearning.exception.helper.StatusCode;
 import com.elearning.service.ResultService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,31 +18,37 @@ public class ResultAPI {
     private ResultService resultService;
 
     @PostMapping("/teacher/result")
-    public String markExam(@RequestBody ResultExamDTO dto) {
-        return resultService.markExam(dto);
+    public Result markExam(@RequestBody ResultExamDTO dto) {
+        ResultDTO savedDTO = resultService.markExam(dto);
+        return new Result(true, StatusCode.SUCCESS,"Mark success", savedDTO);
     }
 
     @PutMapping("/teacher/result/{id}")
-    public String updateScore(@PathVariable("id") Long id, @RequestBody ResultExamDTO dto) {
-        return resultService.updateScoreExam(id, dto);
+    public Result updateScore(@PathVariable("id") Long id, @RequestBody ResultExamDTO dto) {
+        ResultDTO savedDTO = resultService.updateScoreExam(id, dto);
+        return new Result(true, StatusCode.SUCCESS,"Update success", savedDTO);
     }
 
     @DeleteMapping("/teacher/result/{id}")
-    public String deleteResult(@PathVariable("id") Long id) {
-        return resultService.deleteResult(id);
+    public Result deleteResult(@PathVariable("id") Long id) {
+        resultService.deleteResult(id);
+        return new Result(true, StatusCode.SUCCESS,"Delete success");
     }
 
     @GetMapping("/result")
-    public List<ResultEntity> viewResult(@RequestParam(value = "examId") Long examId,
-                                         @RequestParam(value = "studentId") Long studentId) {
+    public Result viewResult(@RequestParam(value = "examId", required = false) Long examId,
+                                         @RequestParam(value = "studentId", required = false) Long studentId) {
         if (examId != null) {
-            return resultService.viewResultOfExam(examId);
+            List<ResultDTO> listDTO = resultService.viewResultOfExam(examId);
+            return new Result(true, StatusCode.SUCCESS,"Search success",listDTO);
             //not found
         }
         if (studentId != null) {
-            return resultService.viewResultOfStudent(studentId);
+            List<ResultDTO> listDTO = resultService.viewResultOfStudent(studentId);
+            return new Result(true, StatusCode.SUCCESS,"Search success",listDTO);
             //not found
         }
-        return null;
+        List<ResultDTO> listDTO = resultService.findAllResult();
+        return new Result(true, StatusCode.SUCCESS,"Search success",listDTO);
     }
 }

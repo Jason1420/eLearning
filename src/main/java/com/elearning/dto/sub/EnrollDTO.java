@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EnrollDTO {
     private Long id;
-
-    private StudentDTO student;
     private ClassDTO clas;
+    private StudentDTO student;
+
 }

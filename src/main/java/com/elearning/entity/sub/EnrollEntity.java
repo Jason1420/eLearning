@@ -16,11 +16,11 @@ public class EnrollEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
-    private StudentEntity student;
-    @ManyToOne
     @JoinColumn(name = "class_id", referencedColumnName = "id")
     private ClassEntity clas;
+    @ManyToOne
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    private StudentEntity student;
 
     public EnrollEntity(StudentEntity student, ClassEntity clas) {
         this.student = student;

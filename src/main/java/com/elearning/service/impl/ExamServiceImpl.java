@@ -5,15 +5,16 @@ import com.elearning.dto.ExamDTO;
 import com.elearning.dto.helper.CreateExamDTO;
 import com.elearning.entity.ExamEntity;
 import com.elearning.entity.sub.ClassEntity;
+import com.elearning.exception.Exception404;
 import com.elearning.repository.ExamRepository;
 import com.elearning.repository.sub.ClassRepository;
 import com.elearning.service.ExamService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,39 +25,48 @@ public class ExamServiceImpl implements ExamService {
     private final ClassRepository classRepository;
 
     @Override
-    public String createExam(CreateExamDTO dto) {
+    public ExamDTO createExam(CreateExamDTO dto) {
         ClassEntity classEntity = classRepository.findOneById(dto.getClassID());
         if (classEntity == null) {
-            throw new EntityNotFoundException("This class is not found!");
+            throw new Exception404("This class is not found!");
         }
-        ExamEntity entity = new ExamEntity(dto.getName(), dto.getType(), classEntity);
-        ExamEntity savedEntity = examRepository.save(entity);
-        return savedEntity.getName() + " was created!";
+        return examConverter.toDTO(examRepository.save(
+                new ExamEntity(dto.getName(), dto.getType(), classEntity)));
     }
 
     @Override
-    public String updateExam(Long id, ExamDTO dto) {
-        ExamEntity oldEntity = examRepository.findOneById(id);
-        if (oldEntity == null) {
-            throw new EntityNotFoundException("This Exam is not found");
+    public ExamDTO updateExam(Long id, ExamDTO dto) {
+        checkExists(id);
+        if (examRepository.findOneById(id) == null) {
+            throw new Exception404("This Exam is not found");
         }
-        ExamEntity savedEntity = examRepository.save(examConverter.toEntity(dto, oldEntity));
-        return "Exam id = " + savedEntity.getId() + " was updated!";
+        return examConverter.toDTO(examRepository.save(
+                examConverter.toEntity(dto, examRepository.findOneById(id))));
+
     }
 
     @Override
-    public String deleteExam(Long id) {
+    public void deleteExam(Long id) {
+        checkExists(id);
         examRepository.delete(examRepository.findOneById(id));
-        return "Exam id = " + id + " was deleted!";
     }
 
     @Override
-    public ExamEntity showExam(Long id) {
-        return examRepository.findOneById(id);
+    public ExamDTO findOneExam(Long id) {
+        checkExists(id);
+        return examConverter.toDTO(examRepository.findOneById(id));
     }
 
     @Override
-    public List<ExamEntity> showAllExam() {
-        return examRepository.findAll();
+    public List<ExamDTO> findAllExam() {
+        return examRepository.findAll().stream()
+                .map(examConverter::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    public void checkExists(Long id) {
+        if (examRepository.findOneById(id) == null) {
+            throw new Exception404("Exam not found with this id");
+        }
     }
 }

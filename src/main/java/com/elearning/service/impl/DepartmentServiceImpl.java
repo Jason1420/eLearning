@@ -26,11 +26,13 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (departmentRepository.findOneByName(dto.getName()) != null) {
             throw new Exception409("Department with this name already exists");
         }
-        return departmentConverter.toDTO(departmentRepository.save(departmentConverter.toEntity(dto)));
+        return departmentConverter.toDTO(
+                departmentRepository.save(departmentConverter.toEntity(dto)));
     }
 
     @Override
     public DepartmentDTO updateDepartment(Long id, DepartmentDTO dto) {
+        checkExists(id);
         if (departmentRepository.findOneByName(dto.getName()) != null) {
             throw new Exception409("Department with this name already exists");
         }
@@ -44,24 +46,26 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void deleteDepartment(Long id) {
+        checkExists(id);
         departmentRepository.delete(departmentRepository.findOneById(id));
     }
 
     @Override
     public DepartmentDTO findOneDepartment(Long id) {
-        if (departmentRepository.findOneById(id) == null) {
-            throw new Exception404("Department not found with this id");
-        }
-        DepartmentDTO dto = departmentConverter.toDTO(departmentRepository.findOneById(id));
-        return dto;
+        checkExists(id);
+        return departmentConverter.toDTO(departmentRepository.findOneById(id));
     }
 
     @Override
     public List<DepartmentDTO> findAllDepartment() {
-        List<DepartmentEntity> listEntity = departmentRepository.findAll();
-        List<DepartmentDTO> listDTO = listEntity.stream()
+        return departmentRepository.findAll().stream()
                 .map(departmentConverter::toDTO)
                 .collect(Collectors.toList());
-        return listDTO;
+    }
+
+    public void checkExists(Long id) {
+        if (departmentRepository.findOneById(id) == null) {
+            throw new Exception404("Department not found with this id");
+        }
     }
 }

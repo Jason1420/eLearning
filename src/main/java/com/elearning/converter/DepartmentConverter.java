@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DepartmentConverter {
     public DepartmentDTO toDTO(DepartmentEntity entity) {
-        return new DepartmentDTO(entity.getId(),
+        return new DepartmentDTO((entity.getId() != null) ? entity.getId() : null,
                 entity.getName());
     }
 

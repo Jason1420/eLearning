@@ -1,7 +1,6 @@
 package com.elearning.service;
 
 import com.elearning.dto.SubjectDTO;
-import com.elearning.entity.SubjectEntity;
 
 import java.util.List;
 
