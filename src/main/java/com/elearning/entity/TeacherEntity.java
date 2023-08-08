@@ -3,6 +3,7 @@ package com.elearning.entity;
 import com.elearning.entity.login.UserEntity;
 import com.elearning.entity.sub.ClassEntity;
 import com.elearning.helper.Gender;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,9 +13,10 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name="teacher")
+@Table(name = "teacher")
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class TeacherEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,10 +40,13 @@ public class TeacherEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "department",referencedColumnName = "id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private DepartmentEntity department;
+
     @OneToMany(mappedBy = "teacher")
+    @JsonIgnore
     private Set<ClassEntity> classes;
     @OneToOne(mappedBy = "teacher")
+    @JsonIgnore
     private UserEntity account;
 }

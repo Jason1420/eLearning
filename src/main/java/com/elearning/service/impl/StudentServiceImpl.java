@@ -2,7 +2,6 @@ package com.elearning.service.impl;
 
 import com.elearning.converter.StudentConverter;
 import com.elearning.dto.StudentDTO;
-import com.elearning.entity.DepartmentEntity;
 import com.elearning.entity.StudentEntity;
 import com.elearning.repository.StudentRepository;
 import com.elearning.service.StudentService;
@@ -18,6 +17,7 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     private final StudentRepository studentRepository;
     private final StudentConverter studentConverter;
+
     @Override
     public String updateStudent(Long id, StudentDTO dto) {
         StudentEntity savedEntity = studentRepository.save(studentConverter.toEntity(dto,

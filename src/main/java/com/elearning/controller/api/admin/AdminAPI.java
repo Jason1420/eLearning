@@ -1,24 +1,22 @@
 package com.elearning.controller.api.admin;
 
-import com.elearning.dto.DepartmentDTO;
-import com.elearning.dto.SubjectDTO;
-import com.elearning.dto.sub.helper.CreateClassDTO;
-import com.elearning.entity.DepartmentEntity;
-import com.elearning.entity.SubjectEntity;
-import com.elearning.entity.sub.ClassEntity;
-import com.elearning.service.ClassService;
-import com.elearning.service.DepartmentService;
-import com.elearning.service.SubjectService;
+import com.elearning.service.security.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/admin")
 @AllArgsConstructor
 public class AdminAPI {
+    private final AccountService accountService;
 
+    @PostMapping("/role")
+    public String addRole(@RequestBody String role) {
+        return accountService.addNewRole(role);
+    }
 
-
+    @DeleteMapping("/user/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        return accountService.deleteUser(id);
+    }
 }

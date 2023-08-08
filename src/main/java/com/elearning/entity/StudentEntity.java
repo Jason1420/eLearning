@@ -5,8 +5,7 @@ import com.elearning.entity.sub.EnrollEntity;
 import com.elearning.entity.sub.ResultEntity;
 import com.elearning.helper.Gender;
 import com.elearning.helper.StudentStatus;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,13 +15,11 @@ import java.util.Date;
 import java.util.Set;
 
 @Entity
-@Table(name="student")
+@Table(name = "student")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@JsonIdentityInfo(
-        generator = ObjectIdGenerators.PropertyGenerator.class,
-        property = "id")
+@JsonIgnoreProperties({"results", "enrolls", "account"})
 public class StudentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -70,7 +67,7 @@ public class StudentEntity {
     }
 
     @ManyToOne
-    @JoinColumn(name = "department",referencedColumnName = "id")
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
     private DepartmentEntity department;
     @OneToMany(mappedBy = "student")
     private Set<ResultEntity> results;

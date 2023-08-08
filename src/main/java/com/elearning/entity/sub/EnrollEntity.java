@@ -13,12 +13,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EnrollEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
-    @JoinColumn(name = "student",referencedColumnName = "id")
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
     private StudentEntity student;
     @ManyToOne
-    @JoinColumn(name = "class",referencedColumnName = "id")
+    @JoinColumn(name = "class_id", referencedColumnName = "id")
     private ClassEntity clas;
+
+    public EnrollEntity(StudentEntity student, ClassEntity clas) {
+        this.student = student;
+        this.clas = clas;
+    }
 }

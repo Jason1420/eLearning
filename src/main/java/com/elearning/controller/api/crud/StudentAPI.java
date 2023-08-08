@@ -1,8 +1,6 @@
-package com.elearning.controller.api;
+package com.elearning.controller.api.crud;
 
-import com.elearning.dto.DepartmentDTO;
 import com.elearning.dto.StudentDTO;
-import com.elearning.entity.DepartmentEntity;
 import com.elearning.entity.StudentEntity;
 import com.elearning.service.StudentService;
 import lombok.AllArgsConstructor;
@@ -17,19 +15,22 @@ public class StudentAPI {
     private final StudentService studentService;
 
     @PutMapping("/{id}")
-    public String updateStudent(@PathVariable Long id, @RequestBody StudentDTO dto){
+    public String updateStudent(@PathVariable Long id, @RequestBody StudentDTO dto) {
         return studentService.updateStudent(id, dto);
     }
+
     @DeleteMapping("/{id}")
-    public String deleteStudent(@PathVariable Long id){
+    public String deleteStudent(@PathVariable Long id) {
         return studentService.deleteStudent(id);
     }
+
     @GetMapping("/{id}")
-    public StudentEntity showStudent(@PathVariable Long id){
+    public StudentEntity showStudent(@PathVariable Long id) {
         return studentService.showStudent(id);
     }
-    @GetMapping()
-    public List<StudentEntity> showAllStudent(){
+
+    @GetMapping
+    public List<StudentEntity> showAllStudent() {
         return studentService.showAllStudent();
     }
 }

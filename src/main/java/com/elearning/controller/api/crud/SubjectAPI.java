@@ -1,4 +1,4 @@
-package com.elearning.controller.api;
+package com.elearning.controller.api.crud;
 
 import com.elearning.dto.SubjectDTO;
 import com.elearning.entity.SubjectEntity;
@@ -13,25 +13,30 @@ import java.util.List;
 @AllArgsConstructor
 public class SubjectAPI {
     private final SubjectService subjectService;
+
     /* CRUD Subject */
-    @PostMapping()
-    public String addSubject(@RequestBody SubjectDTO dto){
+    @PostMapping
+    public String addSubject(@RequestBody SubjectDTO dto) {
         return subjectService.addSubject(dto);
     }
+
     @PutMapping("/{id}")
-    public String updateSubject(@PathVariable Long id, @RequestBody SubjectDTO dto){
+    public String updateSubject(@PathVariable Long id, @RequestBody SubjectDTO dto) {
         return subjectService.updateSubject(id, dto);
     }
+
     @DeleteMapping("/{id}")
-    public String deleteSubject(@PathVariable Long id){
+    public String deleteSubject(@PathVariable Long id) {
         return subjectService.deleteSubject(id);
     }
+
     @GetMapping("/{id}")
-    public SubjectEntity showSubject(@PathVariable Long id){
+    public SubjectEntity showSubject(@PathVariable Long id) {
         return subjectService.showSubject(id);
     }
-    @GetMapping()
-    public List<SubjectEntity> showAllSubject(){
+
+    @GetMapping
+    public List<SubjectEntity> showAllSubject() {
         return subjectService.showAllSubject();
     }
 }

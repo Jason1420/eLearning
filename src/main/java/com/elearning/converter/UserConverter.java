@@ -24,11 +24,11 @@ public class UserConverter {
         entity.setUsername(dto.getUsername());
         entity.setPassword(dto.getPassword());
         entity.setEmail(dto.getEmail());
-        if(dto.getStudent() != null){
-            entity.setStudent(new StudentEntity(dto.getStudent().getCode(),dto.getStudent().getFirstName(),
+        if (dto.getStudent() != null) {
+            entity.setStudent(new StudentEntity(dto.getStudent().getCode(), dto.getStudent().getFirstName(),
                     dto.getStudent().getLastName()));
         }
-        if(dto.getTeacher() != null){
+        if (dto.getTeacher() != null) {
             entity.setTeacher(new TeacherEntity(dto.getTeacher().getFirstName(),
                     dto.getTeacher().getLastName()));
         }
@@ -40,5 +40,9 @@ public class UserConverter {
         oldEntity.setPassword(dto.getPassword());
         oldEntity.setEmail(dto.getEmail());
         return oldEntity;
+    }
+
+    public boolean checkPassword(UserEntity entity, String currentPassword) {
+        return entity.getPassword().equals(currentPassword);
     }
 }

@@ -3,6 +3,7 @@ package com.elearning.entity.login;
 import com.elearning.entity.StudentEntity;
 import com.elearning.entity.TeacherEntity;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,13 +12,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user")
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-
 public class UserEntity {
     @Id
     @Column(name = "user_id")
@@ -25,6 +26,7 @@ public class UserEntity {
     private Long id;
     @Column(unique = true)
     private String username;
+    @JsonIgnore
     private String password;
     private String email;
     private Boolean locked = false;
@@ -39,9 +41,9 @@ public class UserEntity {
     )
     private Set<RoleEntity> roles = new HashSet<>();
     @OneToOne
-    @JoinColumn(name="teacher_id")
+    @JoinColumn(name = "teacher_id")
     private TeacherEntity teacher;
     @OneToOne
-    @JoinColumn(name="student_id")
+    @JoinColumn(name = "student_id")
     private StudentEntity student;
 }

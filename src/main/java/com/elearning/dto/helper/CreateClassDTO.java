@@ -1,4 +1,4 @@
-package com.elearning.dto.sub.helper;
+package com.elearning.dto.helper;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

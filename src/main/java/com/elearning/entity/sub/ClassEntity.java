@@ -2,6 +2,7 @@ package com.elearning.entity.sub;
 
 import com.elearning.entity.SubjectEntity;
 import com.elearning.entity.TeacherEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,19 +28,20 @@ public class ClassEntity {
         this.teacher = teacher;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    private SubjectEntity subject;
+    @ManyToOne
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    private TeacherEntity teacher;
+    @OneToMany(mappedBy = "clas")
+    @JsonIgnore
+    private Set<EnrollEntity> enrolls;
+
     public ClassEntity(Long id, String name, SubjectEntity subject, TeacherEntity teacher) {
         this.id = id;
         this.name = name;
         this.subject = subject;
         this.teacher = teacher;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "subject",referencedColumnName = "id")
-    private SubjectEntity subject;
-    @ManyToOne
-    @JoinColumn(name = "teacher",referencedColumnName = "id")
-    private TeacherEntity teacher;
-    @OneToMany(mappedBy = "clas")
-    private Set<EnrollEntity> enrolls;
 }

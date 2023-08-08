@@ -1,6 +1,6 @@
 package com.elearning.service.impl;
 
-import com.elearning.dto.sub.helper.CreateClassDTO;
+import com.elearning.dto.helper.CreateClassDTO;
 import com.elearning.entity.SubjectEntity;
 import com.elearning.entity.TeacherEntity;
 import com.elearning.entity.sub.ClassEntity;
@@ -27,36 +27,36 @@ public class ClassServiceImpl implements ClassService {
 
     @Override
     public String addClass(CreateClassDTO dto) {
-        if(classRepository.findByName(dto.getClassName()) != null){
+        if (classRepository.findByName(dto.getClassName()) != null) {
             throw new EntityExistsException("This class had existed");
         }
         SubjectEntity subjectEntity = subjectRepository.findOneById(dto.getSubjectId());
-        if(subjectEntity == null ){
+        if (subjectEntity == null) {
             throw new EntityNotFoundException("Subject is not found!");
         }
         TeacherEntity teacherEntity = teacherRepository.findOneById(dto.getTeacherId());
-        if(teacherEntity == null ){
+        if (teacherEntity == null) {
             throw new EntityNotFoundException("Teacher is not found!");
         }
-        ClassEntity entity = new ClassEntity(dto.getClassName(), subjectEntity,teacherEntity);
+        ClassEntity entity = new ClassEntity(dto.getClassName(), subjectEntity, teacherEntity);
         ClassEntity savedEntity = classRepository.save(entity);
         return dto.getClassName() + " was created with class id = " + savedEntity.getId();
     }
 
     @Override
     public String updateClass(Long id, CreateClassDTO dto) {
-        if(classRepository.findById(id) == null){
+        if (classRepository.findById(id) == null) {
             throw new EntityNotFoundException("This class is not found!");
         }
         SubjectEntity subjectEntity = subjectRepository.findOneById(dto.getSubjectId());
-        if(subjectEntity == null ){
+        if (subjectEntity == null) {
             throw new EntityNotFoundException("Subject is not found!");
         }
         TeacherEntity teacherEntity = teacherRepository.findOneById(dto.getTeacherId());
-        if(teacherEntity == null ){
+        if (teacherEntity == null) {
             throw new EntityNotFoundException("Teacher is not found!");
         }
-        ClassEntity entity = new ClassEntity(id,dto.getClassName(), subjectEntity,teacherEntity);
+        ClassEntity entity = new ClassEntity(id, dto.getClassName(), subjectEntity, teacherEntity);
         ClassEntity savedEntity = classRepository.save(entity);
         return dto.getClassName() + " was updated with class id = " + savedEntity.getId();
     }

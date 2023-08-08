@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SubjectConverter {
-    public SubjectDTO toDTO(SubjectEntity entity){
+    public SubjectDTO toDTO(SubjectEntity entity) {
         SubjectDTO dto = new SubjectDTO();
         dto.setId(entity.getId());
         dto.setName(entity.getName());
@@ -14,7 +14,8 @@ public class SubjectConverter {
         dto.setCredit(entity.getCredit());
         return dto;
     }
-    public SubjectEntity toEntity(SubjectDTO dto){
+
+    public SubjectEntity toEntity(SubjectDTO dto) {
         SubjectEntity entity = new SubjectEntity();
         entity.setId(dto.getId());
         entity.setName(dto.getName());
