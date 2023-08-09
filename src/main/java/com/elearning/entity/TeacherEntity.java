@@ -33,6 +33,16 @@ public class TeacherEntity {
     private String email;
     @Column(name = "phone_number", length = 11)
     private String phoneNumber;
+    @ManyToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    private DepartmentEntity department;
+
+    @OneToMany(mappedBy = "teacher")
+    @JsonIgnore
+    private Set<ClassEntity> classes;
+    @OneToOne(mappedBy = "teacher")
+    @JsonIgnore
+    private UserEntity account;
 
     public TeacherEntity(String firstName, String lastName) {
         this.firstName = firstName;
@@ -63,15 +73,4 @@ public class TeacherEntity {
         this.phoneNumber = phoneNumber;
         this.department = department;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "id")
-    private DepartmentEntity department;
-
-    @OneToMany(mappedBy = "teacher")
-    @JsonIgnore
-    private Set<ClassEntity> classes;
-    @OneToOne(mappedBy = "teacher")
-    @JsonIgnore
-    private UserEntity account;
 }

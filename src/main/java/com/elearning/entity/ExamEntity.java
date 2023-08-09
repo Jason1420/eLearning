@@ -24,6 +24,12 @@ public class ExamEntity {
     private String name;
     @Column(name = "type")
     private ExamType type;
+    @OneToMany(mappedBy = "exam")
+    @JsonIgnore
+    private Set<ResultEntity> results;
+    @ManyToOne
+    @JoinColumn(name = "class_id", referencedColumnName = "id")
+    private ClassEntity clas;
 
     public ExamEntity(String name, ExamType type, ClassEntity clas) {
         this.name = name;
@@ -35,12 +41,4 @@ public class ExamEntity {
         this.name = name;
         this.type = type;
     }
-
-    @OneToMany(mappedBy = "exam")
-    @JsonIgnore
-    private Set<ResultEntity> results;
-    @ManyToOne
-    @JoinColumn(name = "class_id", referencedColumnName = "id")
-    private ClassEntity clas;
-
 }

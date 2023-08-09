@@ -11,7 +11,6 @@ import com.elearning.repository.StudentRepository;
 import com.elearning.repository.sub.ClassRepository;
 import com.elearning.repository.sub.EnrollRepository;
 import com.elearning.service.EnrollService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,6 +58,7 @@ public class EnrollServiceImpl implements EnrollService {
                 .map(enrollConverter::toDTO)
                 .collect(Collectors.toList());
     }
+
     public void checkExists(Long id) {
         if (enrollRepository.findOneById(id) == null) {
             throw new Exception404("EnrolledClass not found with this id");

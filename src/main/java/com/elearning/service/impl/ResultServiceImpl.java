@@ -11,7 +11,6 @@ import com.elearning.repository.ExamRepository;
 import com.elearning.repository.StudentRepository;
 import com.elearning.repository.sub.ResultRepository;
 import com.elearning.service.ResultService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,7 +57,7 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public List<ResultDTO> viewResultOfExam(Long examId) {
-        if(resultRepository.searchByExamId(examId).size() == 0){
+        if (resultRepository.searchByExamId(examId).size() == 0) {
             throw new Exception404("Result not found with this exam id");
         }
         return resultRepository.searchByExamId(examId).stream()
@@ -68,7 +67,7 @@ public class ResultServiceImpl implements ResultService {
 
     @Override
     public List<ResultDTO> viewResultOfStudent(Long studentId) {
-        if(resultRepository.searchByStudentId(studentId).size() == 0){
+        if (resultRepository.searchByStudentId(studentId).size() == 0) {
             throw new Exception404("Result not found with this student id");
         }
         return resultRepository.searchByStudentId(studentId).stream()

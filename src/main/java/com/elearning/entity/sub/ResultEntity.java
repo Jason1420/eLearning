@@ -16,12 +16,6 @@ public class ResultEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    public ResultEntity(StudentEntity student, ExamEntity exam, double score) {
-        this.student = student;
-        this.exam = exam;
-        this.score = score;
-    }
     @ManyToOne
     @JoinColumn(name = "exam_id", referencedColumnName = "id")
     private ExamEntity exam;
@@ -29,4 +23,20 @@ public class ResultEntity {
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     private StudentEntity student;
     private double score;
+
+    public ResultEntity(StudentEntity student, ExamEntity exam, double score) {
+        this.student = student;
+        this.exam = exam;
+        this.score = score;
+    }
+
+    public void setScore(double score) {
+        if (score > 10.0) {
+            this.score = 10.0;
+        } else if (score < 0) {
+            this.score = 0;
+        } else {
+            this.score = score;
+        }
+    }
 }

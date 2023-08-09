@@ -19,16 +19,6 @@ public class DepartmentEntity {
     private Long id;
     @Column(name = "name", unique = true)
     private String name;
-
-    public DepartmentEntity(String name) {
-        this.name = name;
-    }
-
-    public DepartmentEntity(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
     @OneToMany(mappedBy = "department")
     @JsonIgnore
     private Set<TeacherEntity> teachers;
@@ -36,4 +26,9 @@ public class DepartmentEntity {
     @OneToMany(mappedBy = "department")
     @JsonIgnore
     private Set<StudentEntity> students;
+
+    public DepartmentEntity(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

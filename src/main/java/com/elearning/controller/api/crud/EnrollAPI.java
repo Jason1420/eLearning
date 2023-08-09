@@ -2,7 +2,6 @@ package com.elearning.controller.api.crud;
 
 import com.elearning.dto.helper.EnrollClassDTO;
 import com.elearning.dto.sub.EnrollDTO;
-import com.elearning.entity.sub.EnrollEntity;
 import com.elearning.exception.helper.Result;
 import com.elearning.exception.helper.StatusCode;
 import com.elearning.service.EnrollService;
@@ -28,11 +27,13 @@ public class EnrollAPI {
         enrollService.deleteEnrolledClass(id);
         return new Result(true, StatusCode.SUCCESS, "Delete success");
     }
+
     @GetMapping("/{id}")
     public Result findOneEnrolledClass(@PathVariable("id") Long id) {
         EnrollDTO dto = enrollService.findOneEnrolledClass(id);
         return new Result(true, StatusCode.SUCCESS, "Find one success", dto);
     }
+
     @GetMapping
     public Result findAllEnrolledClass() {
         List<EnrollDTO> listDTO = enrollService.findAllEnrolledClass();

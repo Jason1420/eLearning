@@ -1,8 +1,6 @@
 package com.elearning.converter;
 
-import com.elearning.dto.sub.ClassDTO;
 import com.elearning.dto.sub.EnrollDTO;
-import com.elearning.entity.sub.ClassEntity;
 import com.elearning.entity.sub.EnrollEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;

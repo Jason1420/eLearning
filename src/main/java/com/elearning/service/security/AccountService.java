@@ -22,4 +22,5 @@ public interface AccountService {
     void deleteUser(Long id);
 
     RoleDTO addNewRole(String role);
+
 }

@@ -104,6 +104,4 @@ public class AccountServiceImpl implements AccountService {
                 .map(userConverter::toDTO)
                 .collect(Collectors.toList());
     }
-
-
 }

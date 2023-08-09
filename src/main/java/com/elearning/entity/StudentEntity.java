@@ -46,19 +46,15 @@ public class StudentEntity {
     private int totalCredit;
     @Column(name = "status")
     private StudentStatus status;
-
-    public StudentEntity(String code, String firstName, String lastName,
-                         Date dateOfBirth, Gender gender, String email,
-                         String phoneNumber, String address) {
-        this.code = code;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-    }
+    @ManyToOne
+    @JoinColumn(name = "department_id", referencedColumnName = "id")
+    private DepartmentEntity department;
+    @OneToMany(mappedBy = "student")
+    private Set<ResultEntity> results;
+    @OneToMany(mappedBy = "student")
+    private Set<EnrollEntity> enrolls;
+    @OneToOne(mappedBy = "student")
+    private UserEntity account;
 
     public StudentEntity(String code, String firstName, String lastName,
                          Date dateOfBirth, Gender gender, String email, String phoneNumber,
@@ -95,13 +91,5 @@ public class StudentEntity {
         this.lastName = lastName;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "department_id", referencedColumnName = "id")
-    private DepartmentEntity department;
-    @OneToMany(mappedBy = "student")
-    private Set<ResultEntity> results;
-    @OneToMany(mappedBy = "student")
-    private Set<EnrollEntity> enrolls;
-    @OneToOne(mappedBy = "student")
-    private UserEntity account;
+
 }

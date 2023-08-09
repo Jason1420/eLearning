@@ -21,13 +21,6 @@ public class ClassEntity {
     private Long id;
     @Column(unique = true)
     private String name;
-
-    public ClassEntity(String name, SubjectEntity subject, TeacherEntity teacher) {
-        this.name = name;
-        this.subject = subject;
-        this.teacher = teacher;
-    }
-
     @ManyToOne
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
     private SubjectEntity subject;
@@ -37,6 +30,12 @@ public class ClassEntity {
     @OneToMany(mappedBy = "clas")
     @JsonIgnore
     private Set<EnrollEntity> enrolls;
+
+    public ClassEntity(String name, SubjectEntity subject, TeacherEntity teacher) {
+        this.name = name;
+        this.subject = subject;
+        this.teacher = teacher;
+    }
 
     public ClassEntity(Long id, String name, SubjectEntity subject, TeacherEntity teacher) {
         this.id = id;

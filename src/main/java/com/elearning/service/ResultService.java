@@ -2,7 +2,6 @@ package com.elearning.service;
 
 import com.elearning.dto.helper.ResultExamDTO;
 import com.elearning.dto.sub.ResultDTO;
-import com.elearning.entity.sub.ResultEntity;
 
 import java.util.List;
 

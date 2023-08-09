@@ -24,6 +24,9 @@ public class SubjectEntity {
     private String code;
     @Column(name = "credit")
     private int credit;
+    @OneToMany(mappedBy = "subject")
+    @JsonIgnore
+    private Set<ClassEntity> classes;
 
     public SubjectEntity(Long id, String name, String code, int credit) {
         this.id = id;
@@ -32,8 +35,13 @@ public class SubjectEntity {
         this.credit = credit;
     }
 
-    @OneToMany(mappedBy = "subject")
-    @JsonIgnore
-    private Set<ClassEntity> classes;
-
+    public void setCredit(int credit) {
+        if (credit > 12) {
+            this.credit = 12;
+        } else if (credit < 0) {
+            this.credit = 0;
+        } else {
+            this.credit = credit;
+        }
+    }
 }
