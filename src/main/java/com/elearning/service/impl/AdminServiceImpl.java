@@ -48,7 +48,6 @@ public class AdminServiceImpl implements AdminService {
             return score * 0.7;
         }
         return 0;
-
     }
 
     public String statusOfStudent(int totalCredit) {
@@ -98,9 +97,6 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void updateResultToStudent() {
         List<FinalResultEntity> listEntity = finalResultRepository.findAll();
-        // gpa
-        // totalCredit
-        // status
 //        [student_id, class_id, exam_id, exam_type, result_score, subject_credit]
         listEntity.stream()
                 .filter(data -> data.getScore() >= 1.0)
@@ -123,7 +119,6 @@ public class AdminServiceImpl implements AdminService {
                     preEntity.setStatus(StudentStatus.valueOf(statusOfStudent(totalCredit)));
                     studentRepository.save(preEntity);
                 });
-//        return null;
     }
 
     @Override

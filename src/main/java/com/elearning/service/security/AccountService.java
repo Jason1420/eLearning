@@ -3,6 +3,7 @@ package com.elearning.service.security;
 import com.elearning.dto.helper.ChangePasswordDTO;
 import com.elearning.dto.login.RoleDTO;
 import com.elearning.dto.login.UserDTO;
+import com.elearning.entity.login.UserEntity;
 
 import java.util.List;
 
@@ -23,4 +24,5 @@ public interface AccountService {
 
     RoleDTO addNewRole(String role);
 
+    UserEntity loadUserByUsername(String username);
 }
