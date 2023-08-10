@@ -14,5 +14,4 @@ public class ClassDTO {
     private String name;
     private SubjectDTO subject;
     private TeacherDTO teacher;
-//    private Set<EnrollDTO> enrolls;
 }

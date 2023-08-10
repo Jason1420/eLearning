@@ -22,7 +22,6 @@ public class DepartmentEntity {
     @OneToMany(mappedBy = "department")
     @JsonIgnore
     private Set<TeacherEntity> teachers;
-
     @OneToMany(mappedBy = "department")
     @JsonIgnore
     private Set<StudentEntity> students;

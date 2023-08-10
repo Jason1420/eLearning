@@ -10,9 +10,7 @@ public class AuthResponseDTO {
 
     @Override
     public String toString() {
-        return "AuthResponseDTO{" +
-                "accessToken='" + accessToken + '\'' +
-                ", tokenType='" + tokenType + '\'' +
-                '}';
+        return "AccessToken='" + accessToken + '\'' +
+                ", tokenType='" + tokenType + '\'';
     }
 }

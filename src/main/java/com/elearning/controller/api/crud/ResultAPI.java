@@ -16,19 +16,19 @@ import java.util.List;
 public class ResultAPI {
     private ResultService resultService;
 
-    @PostMapping("/teacher/result")
+    @PostMapping("/result")
     public Result markExam(@RequestBody ResultExamDTO dto) {
         ResultDTO savedDTO = resultService.markExam(dto);
         return new Result(true, StatusCode.SUCCESS, "Mark success", savedDTO);
     }
 
-    @PutMapping("/teacher/result/{id}")
+    @PutMapping("/result/{id}")
     public Result updateScore(@PathVariable("id") Long id, @RequestBody ResultExamDTO dto) {
         ResultDTO savedDTO = resultService.updateScoreExam(id, dto);
         return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
     }
 
-    @DeleteMapping("/teacher/result/{id}")
+    @DeleteMapping("/result/{id}")
     public Result deleteResult(@PathVariable("id") Long id) {
         resultService.deleteResult(id);
         return new Result(true, StatusCode.SUCCESS, "Delete success");

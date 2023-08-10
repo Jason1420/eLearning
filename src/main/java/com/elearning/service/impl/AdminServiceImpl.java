@@ -1,19 +1,19 @@
 package com.elearning.service.impl;
 
-import com.elearning.converter.ClassConverter;
-import com.elearning.converter.FinalResultConverter;
-import com.elearning.converter.StudentConverter;
+import com.elearning.converter.UserConverter;
+import com.elearning.dto.login.UserDTO;
 import com.elearning.entity.StudentEntity;
+import com.elearning.entity.login.UserEntity;
 import com.elearning.entity.sub.ClassEntity;
 import com.elearning.entity.sub.FinalResultEntity;
 import com.elearning.exception.Exception404;
 import com.elearning.helper.StudentStatus;
 import com.elearning.repository.StudentRepository;
+import com.elearning.repository.security.UserRepository;
 import com.elearning.repository.sub.ClassRepository;
 import com.elearning.repository.sub.EnrollRepository;
 import com.elearning.repository.sub.FinalResultRepository;
 import com.elearning.service.AdminService;
-import com.elearning.service.StudentService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,13 +26,12 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class AdminServiceImpl implements AdminService {
     private final StudentRepository studentRepository;
-    private final StudentService studentService;
-    private final StudentConverter studentConverter;
+    private final UserRepository userRepository;
+    private final UserConverter userConverter;
     private final ClassRepository classRepository;
-    private final ClassConverter classConverter;
     private final EnrollRepository enrollRepository;
     private final FinalResultRepository finalResultRepository;
-    private final FinalResultConverter finalResultConverter;
+
 
     public void checkExists(Long id) {
         if (studentRepository.findOneById(id) == null) {
@@ -119,6 +118,16 @@ public class AdminServiceImpl implements AdminService {
                     preEntity.setStatus(StudentStatus.valueOf(statusOfStudent(totalCredit)));
                     studentRepository.save(preEntity);
                 });
+    }
+
+    @Override
+    public UserDTO updateUser(Long id, UserDTO userDTO) {
+        UserEntity entity = userRepository.findOneById(id);
+        if (entity == null) {
+            throw new Exception404("This user is not found");
+        }
+        UserEntity savedEntity = userConverter.toEntity(userDTO, entity);
+        return userConverter.toDTO(savedEntity);
     }
 
     @Override

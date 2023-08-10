@@ -28,7 +28,6 @@ public class JwtGenerator {
         Date expiredDate = new Date(currentDate.getTime() + JwtConstant.JWT_EXPIRATION);
         String token = Jwts.builder()
                 .setClaims(Map.of("role", entity.getRoles(), "name", username))
-                .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expiredDate)
                 .signWith(getSignInKey(), SignatureAlgorithm.HS256)
@@ -41,9 +40,8 @@ public class JwtGenerator {
                 .setSigningKey(JwtConstant.JWT_SECRET)
                 .parseClaimsJws(token)
                 .getBody();
-        return claims.getSubject();
+        return String.valueOf(claims.get("name"));
     }
-
     public boolean validateToken(String token) {
         try {
             Jwts.parser()

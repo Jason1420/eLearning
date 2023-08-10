@@ -7,7 +7,6 @@ import com.elearning.dto.login.RoleDTO;
 import com.elearning.dto.login.UserDTO;
 import com.elearning.entity.login.RoleEntity;
 import com.elearning.entity.login.UserEntity;
-import com.elearning.exception.Exception400;
 import com.elearning.exception.Exception404;
 import com.elearning.exception.Exception409;
 import com.elearning.repository.StudentRepository;
@@ -16,6 +15,7 @@ import com.elearning.repository.security.RoleRepository;
 import com.elearning.repository.security.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +30,7 @@ public class AccountServiceImpl implements AccountService {
     private final RoleRepository roleRepository;
     private final StudentRepository studentRepository;
     private final TeacherRepository teacherRepository;
-    //    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final UserConverter userConverter;
 
     @Override
@@ -68,10 +68,10 @@ public class AccountServiceImpl implements AccountService {
         if (entity == null) {
             throw new EntityNotFoundException("This user is not found!");
         }
-        if (!userConverter.checkPassword(entity, dto.getCurrentPassword())) {
-            throw new Exception400("Wrong current password!");
-        }
-        entity.setPassword(dto.getNewPassword());
+//        if (!userConverter.checkPassword(entity, dto.getCurrentPassword())) {
+//            throw new Exception400("Wrong current password!");
+//        }
+        entity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         entity.setChangedPassword(true);
     }
 
@@ -90,12 +90,25 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public UserEntity loadUserByUsername(String username) {
+        return userRepository.findOneByUsername(username);
+    }
+
+    @Override
     public UserDTO findOneUser(Long id) {
         if (userRepository.findOneById(id) == null) {
             throw new Exception404("User not found with this id");
         }
         return userConverter.toDTO(userRepository.findOneById(id));
     }
+//    public Long findOneUser(Long id) {
+//        UserEntity entity = userRepository.findOneById(id);
+//        Long studentId = (entity.getStudent() != null)?entity.getStudent().getId():0;
+//        Long teacherId = (entity.getTeacher() != null)?entity.getTeacher().getId():0;
+//        Long idz = studentId + teacherId;
+//
+//        return idz;
+//    }
 
     @Override
     public List<UserDTO> findAllUser() {

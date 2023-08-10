@@ -17,6 +17,7 @@ public interface AccountService {
     List<UserDTO> findAllUser();
 
     UserDTO findOneUser(Long id);
+//    Long findOneUser(Long id);
 
     void changePassword(Long id, ChangePasswordDTO dto);
 

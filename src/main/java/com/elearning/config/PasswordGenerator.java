@@ -7,7 +7,7 @@ import java.util.stream.IntStream;
 public class PasswordGenerator {
 
     public static String generateRandomPassword(int len) {
-        final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
 
         SecureRandom random = new SecureRandom();
         return IntStream.range(0, len)

@@ -13,14 +13,9 @@ public class SubjectDTO {
     private String code;
     private int credit;
 
-    public void setCredit(int credit) {
-        if (credit > 12) {
-            this.credit = 12;
-        } else if (credit < 0) {
-            this.credit = 0;
-        } else {
-            this.credit = credit;
-        }
+    public int getCredit() {
+        if (id >= 12) return 12;
+        if (id <= 0) return 0;
+        return 12;
     }
-//    private Set<ClassDTO> classes;
 }

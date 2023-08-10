@@ -54,12 +54,12 @@ public class ClassServiceImpl implements ClassService {
             }
         }
         SubjectEntity subjectEntity = subjectRepository.findOneById(dto.getSubjectId());
-        if (subjectEntity == null) {
-            throw new Exception404("Subject is not found!");
-        }
-        TeacherEntity teacherEntity = teacherRepository.findOneById(dto.getTeacherId());
-        if (teacherEntity == null) {
-            throw new Exception404("Teacher is not found!");
+            if (subjectEntity == null) {
+                throw new Exception404("Subject is not found!");
+            }
+            TeacherEntity teacherEntity = teacherRepository.findOneById(dto.getTeacherId());
+            if (teacherEntity == null) {
+                throw new Exception404("Teacher is not found!");
         }
         return classConverter.toDTO(classRepository.save(
                 new ClassEntity(id, dto.getClassName(), subjectEntity, teacherEntity)));

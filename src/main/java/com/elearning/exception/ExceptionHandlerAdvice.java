@@ -17,6 +17,15 @@ import java.util.Map;
 
 @RestControllerAdvice
 public class ExceptionHandlerAdvice {
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleInvalidArgument(MethodArgumentNotValidException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> {
+            errorMap.put(error.getField(), error.getDefaultMessage());
+        });
+        return errorMap;
+    }
 
     @ExceptionHandler(Exception404.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -48,26 +57,16 @@ public class ExceptionHandlerAdvice {
         return new Result(false, StatusCode.CONFLICT, ex.getMessage());
     }
 
-//    @ExceptionHandler({UsernameNotFoundException.class, BadCredentialsException.class})
-//    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-//    public ErrorResponse handleAuthenticationException(Exception ex) {
-//        return new ErrorResponse(HttpStatus.UNAUTHORIZED, "username or password is incorrect.");
-//    }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleInvalidArgument(MethodArgumentNotValidException ex) {
-        Map<String, String> errorMap = new HashMap<>();
-        ex.getBindingResult().getFieldErrors().forEach(error -> {
-            errorMap.put(error.getField(), error.getDefaultMessage());
-        });
-        return errorMap;
+    @ExceptionHandler({AuthenticationException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    Result handleAuthenticationException(Exception ex) {
+        return new Result(false, StatusCode.UNAUTHORIZED, "Username or password invalid");
     }
 
-    @ExceptionHandler({AuthenticationException.class, AuthenticationCredentialsNotFoundException.class})
+    @ExceptionHandler(AuthenticationCredentialsNotFoundException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Result handleInvalidBearerTokenException(AuthenticationException ex) {
-        return new Result(false,StatusCode.UNAUTHORIZED, "The access token provided is expired, revoked, malformed, or invalid for other reasons.");
+        return new Result(false, StatusCode.UNAUTHORIZED, "The access token provided is expired, revoked, malformed, or invalid for other reasons");
     }
 
     @ExceptionHandler(AccessDeniedException.class)
@@ -76,8 +75,8 @@ public class ExceptionHandlerAdvice {
         return new Result(false, StatusCode.FORBIDDEN, "No permission.");
     }
 
-    //    @ExceptionHandler(Exception.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     Result handleException(Exception ex) {
         return new Result(false, StatusCode.INTERNAL_SERVER_ERROR, "INTERNAL SERVER ERROR");
     }

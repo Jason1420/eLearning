@@ -91,5 +91,4 @@ public class StudentEntity {
         this.lastName = lastName;
     }
 
-
 }

@@ -25,6 +25,8 @@ public class StudentDTO {
     private double GPA;
     private int totalCredit;
     private StudentStatus status;
+    private DepartmentDTO department;
+    private UserDTO account;
 
     public StudentDTO(Long id, String code, String firstName, String lastName, Date dateOfBirth, Gender gender,
                       String email, String phoneNumber, String address, DepartmentDTO department) {
@@ -40,8 +42,4 @@ public class StudentDTO {
         this.department = department;
     }
 
-    private DepartmentDTO department;
-    private UserDTO account;
-    //    private Set<ResultDTO> results;
-//    private Set<EnrollDTO> enrolls;
 }

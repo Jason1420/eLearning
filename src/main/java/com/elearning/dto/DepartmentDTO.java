@@ -15,6 +15,4 @@ public class DepartmentDTO {
         this.name = name;
     }
 
-    //    private Set<TeacherDTO> teachers;
-//    private Set<StudentDTO> students;
 }

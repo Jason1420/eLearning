@@ -5,21 +5,25 @@ import com.elearning.dto.sub.EnrollDTO;
 import com.elearning.exception.helper.Result;
 import com.elearning.exception.helper.StatusCode;
 import com.elearning.service.EnrollService;
+import com.elearning.service.security.CustomUserDetailServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/student/enroll")
+@RequestMapping("/api/v1/enroll")
 @AllArgsConstructor
 public class EnrollAPI {
     private final EnrollService enrollService;
-
+    private final CustomUserDetailServiceImpl customUserDetailService;
     @PostMapping
     public Result enrollClass(@RequestBody EnrollClassDTO dto) {
+        if(customUserDetailService.checkUserId(dto.getStudentId())){
         EnrollDTO savedDTO = enrollService.enrollClass(dto);
         return new Result(true, StatusCode.SUCCESS, "Add success", savedDTO);
+        }
+        return new Result(false, StatusCode.FORBIDDEN, "FORBIDDEN");
     }
 
     @DeleteMapping("/{id}")

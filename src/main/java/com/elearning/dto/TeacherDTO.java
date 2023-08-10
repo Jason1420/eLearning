@@ -35,5 +35,4 @@ public class TeacherDTO {
         this.department = department;
     }
 
-    //    private Set<ClassDTO> classes;
 }

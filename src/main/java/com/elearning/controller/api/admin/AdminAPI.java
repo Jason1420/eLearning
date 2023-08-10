@@ -1,6 +1,7 @@
 package com.elearning.controller.api.admin;
 
 import com.elearning.dto.login.RoleDTO;
+import com.elearning.dto.login.UserDTO;
 import com.elearning.exception.helper.Result;
 import com.elearning.exception.helper.StatusCode;
 import com.elearning.service.AdminService;
@@ -39,6 +40,12 @@ public class AdminAPI {
     public Result updateResultToStudent() {
         adminService.updateResultToStudent();
         return new Result(true, StatusCode.SUCCESS, "Update result to student success!");
+    }
+
+    @PutMapping("/user/{id}")
+    public Result updateUser(@PathVariable("id") Long id, @RequestBody UserDTO userDTO) {
+        UserDTO savedDTO = adminService.updateUser(id, userDTO);
+        return new Result(true, StatusCode.SUCCESS, "Update user success!", savedDTO);
     }
 
     @GetMapping("/result")

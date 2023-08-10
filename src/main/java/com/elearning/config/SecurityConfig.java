@@ -26,26 +26,57 @@ public class SecurityConfig {
     private final CustomUserDetailServiceImpl userDetailServiceImpl;
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
     private final JwtAuthHandler jwtAuthHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                                .requestMatchers("/signup").permitAll()
-                                .requestMatchers("/signup/**").permitAll()
-                                .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
-                                .requestMatchers("/verify").permitAll()
-                                .requestMatchers("/profile").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/student").hasAnyAuthority("ADMIN", "MANAGER")
-                                .requestMatchers(HttpMethod.GET, "/api/student/**").hasAnyAuthority("ADMIN", "MANAGER")
-                                .requestMatchers(HttpMethod.GET, "/api/student/search/**").hasAnyAuthority("ADMIN", "MANAGER")
-                                .requestMatchers(HttpMethod.POST, "/api/student").hasAnyAuthority("ADMIN", "MANAGER", "USER")
-                                .requestMatchers(HttpMethod.POST, "/api/student/**").hasAnyAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/api/student/**").hasAnyAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.PUT, "/api/student/**").hasAnyAuthority("ADMIN", "MANAGER")
-                                .requestMatchers(HttpMethod.DELETE, "/api/student").hasAnyAuthority("ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/user/**").hasAnyAuthority("MANAGER", "ADMIN")
-                                .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                                .anyRequest().authenticated()
+                        .requestMatchers("/admin").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/register/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/user/**").hasAnyAuthority("ADMIN", "TEACHER", "STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/user/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/user").hasAnyAuthority("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/class").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/class/**").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/class/**").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/class/**").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/class").hasAnyAuthority("ADMIN")
+
+                        .requestMatchers("/api/v1/department").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/api/v1/department/**").hasAnyAuthority("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/subject").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/subject/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/subject/**").hasAnyAuthority("ADMIN")
+
+                        .requestMatchers("/api/v1/exam").hasAnyAuthority("ADMIN","TEACHER")
+                        .requestMatchers("/api/v1/exam/**").hasAnyAuthority("ADMIN","TEACHER")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/teacher/**").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/teacher/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/teacher/**").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/teacher").hasAnyAuthority("ADMIN")
+
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/student/**").hasAnyAuthority("ADMIN", "STUDENT")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/student/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/student/**").hasAnyAuthority("ADMIN", "STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/student").hasAnyAuthority("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/enroll").hasAnyAuthority("ADMIN","STUDENT")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/enroll/**").hasAnyAuthority("ADMIN", "TEACHER", "STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/enroll/**").hasAnyAuthority("ADMIN", "STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/enroll").hasAnyAuthority("ADMIN")
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/result").hasAnyAuthority("ADMIN","TEACHER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/result/**").hasAnyAuthority("ADMIN","TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/result/**").hasAnyAuthority("ADMIN","TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/result").hasAnyAuthority("ADMIN", "TEACHER")
+
+                        .anyRequest().authenticated()
                 )
                 .logout(LogoutConfigurer::permitAll)
                 .csrf(AbstractHttpConfigurer::disable)
@@ -58,6 +89,7 @@ public class SecurityConfig {
         http.addFilterBefore(jwtAuthenticationFilters(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilters() {
         return new JwtAuthenticationFilter();

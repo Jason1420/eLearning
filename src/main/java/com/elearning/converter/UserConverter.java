@@ -27,6 +27,13 @@ public class UserConverter {
                                 dto.getTeacher().getLastName()) : null);
     }
 
+    public UserEntity toEntity(UserDTO dto, UserEntity oldEntity) {
+        oldEntity.setUsername(dto.getUsername());
+        oldEntity.setPassword(dto.getPassword());
+        oldEntity.setEmail(dto.getEmail());
+        return oldEntity;
+    }
+
     public boolean checkPassword(UserEntity entity, String currentPassword) {
         return entity.getPassword().equals(currentPassword);
     }
