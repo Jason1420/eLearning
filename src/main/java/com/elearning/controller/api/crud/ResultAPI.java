@@ -21,12 +21,13 @@ public class ResultAPI {
     private final ResultRepository resultRepository;
     private final ExamRepository examRepository;
     private final CustomUserDetailServiceImpl customUserDetailService;
+
     @PostMapping("/result")
     public Result markExam(@RequestBody ResultExamDTO dto) {
         Long teacherId = examRepository.findOneById(dto.getExamId()).getClas().getTeacher().getId();
-        if(customUserDetailService.checkUserId(teacherId)){
-        ResultDTO savedDTO = resultService.markExam(dto);
-        return new Result(true, StatusCode.SUCCESS, "Mark success", savedDTO);
+        if (customUserDetailService.checkUserId(teacherId)) {
+            ResultDTO savedDTO = resultService.markExam(dto);
+            return new Result(true, StatusCode.SUCCESS, "Mark success", savedDTO);
         }
         return new Result(false, StatusCode.SUCCESS, "No permission");
     }
@@ -34,7 +35,7 @@ public class ResultAPI {
     @PutMapping("/result/{id}")
     public Result updateScore(@PathVariable("id") Long id, @RequestBody ResultExamDTO dto) {
         Long teacherId = examRepository.findOneById(resultRepository.findOneById(id).getExam().getId()).getClas().getTeacher().getId();
-        if(customUserDetailService.checkUserId(teacherId)) {
+        if (customUserDetailService.checkUserId(teacherId)) {
             ResultDTO savedDTO = resultService.updateScoreExam(id, dto);
             return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
         }

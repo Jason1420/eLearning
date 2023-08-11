@@ -16,11 +16,12 @@ import java.util.List;
 public class TeacherAPI {
     private final TeacherService teacherService;
     private final CustomUserDetailServiceImpl customUserDetailService;
+
     @PutMapping("/{id}")
     public Result updateTeacher(@PathVariable Long id, @RequestBody TeacherDTO dto) {
-        if(customUserDetailService.checkUserId(id)){
-        TeacherDTO savedDTO = teacherService.updateTeacher(id, dto);
-        return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
+        if (customUserDetailService.checkUserId(id)) {
+            TeacherDTO savedDTO = teacherService.updateTeacher(id, dto);
+            return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
         }
         return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }

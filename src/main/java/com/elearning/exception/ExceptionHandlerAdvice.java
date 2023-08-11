@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,9 +28,9 @@ public class ExceptionHandlerAdvice {
         return errorMap;
     }
 
-    @ExceptionHandler(Exception404.class)
+    @ExceptionHandler({Exception404.class, MethodArgumentTypeMismatchException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    Result handlerException404(Exception404 ex, WebRequest req) {
+    Result handlerException404(Exception ex, WebRequest req) {
         return new Result(false, StatusCode.NOT_FOUND, ex.getMessage());
     }
 

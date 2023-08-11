@@ -59,7 +59,7 @@ public class ResultServiceImpl implements ResultService {
         ExamEntity examEntity = examRepository.findOneById(resultEntity.getExam().getId());
         Long teacherId = examEntity.getClas().getTeacher().getId();
         if (customUserDetailService.checkUserId(teacherId)) {
-            resultEntity.setScore(dto.getScore()* examEntity.getCoefficient() / 10);
+            resultEntity.setScore(dto.getScore() * examEntity.getCoefficient() / 10);
             return resultConverter.toDTO(resultRepository.save(resultEntity));
         }
         throw new Exception403("No permission!");

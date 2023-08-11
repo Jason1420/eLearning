@@ -17,11 +17,12 @@ import java.util.List;
 public class EnrollAPI {
     private final EnrollService enrollService;
     private final CustomUserDetailServiceImpl customUserDetailService;
+
     @PostMapping
     public Result enrollClass(@RequestBody EnrollClassDTO dto) {
-        if(customUserDetailService.checkUserId(dto.getStudentId())){
-        EnrollDTO savedDTO = enrollService.enrollClass(dto);
-        return new Result(true, StatusCode.SUCCESS, "Add success", savedDTO);
+        if (customUserDetailService.checkUserId(dto.getStudentId())) {
+            EnrollDTO savedDTO = enrollService.enrollClass(dto);
+            return new Result(true, StatusCode.SUCCESS, "Add success", savedDTO);
         }
         return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }

@@ -38,6 +38,7 @@ public class AdminServiceImpl implements AdminService {
             throw new Exception404("Student not found with this id");
         }
     }
+
     public String statusOfStudent(int totalCredit) {
         if (totalCredit <= 5) {
             return "FIRST_YEAR";

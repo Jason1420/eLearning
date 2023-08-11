@@ -42,6 +42,7 @@ public class JwtGenerator {
                 .getBody();
         return String.valueOf(claims.get("name"));
     }
+
     public boolean validateToken(String token) {
         try {
             Jwts.parser()

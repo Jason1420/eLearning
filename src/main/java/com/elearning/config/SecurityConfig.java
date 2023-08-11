@@ -53,8 +53,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/subject/**").hasAnyAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/subject/**").hasAnyAuthority("ADMIN")
 
-                        .requestMatchers("/api/v1/exam").hasAnyAuthority("ADMIN","TEACHER")
-                        .requestMatchers("/api/v1/exam/**").hasAnyAuthority("ADMIN","TEACHER")
+                        .requestMatchers("/api/v1/exam").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers("/api/v1/exam/**").hasAnyAuthority("ADMIN", "TEACHER")
 
                         .requestMatchers(HttpMethod.PUT, "/api/v1/teacher/**").hasAnyAuthority("ADMIN", "TEACHER")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/teacher/**").hasAnyAuthority("ADMIN")
@@ -63,17 +63,17 @@ public class SecurityConfig {
 
                         .requestMatchers(HttpMethod.PUT, "/api/v1/student/**").hasAnyAuthority("ADMIN", "STUDENT")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/student/**").hasAnyAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/student/**").hasAnyAuthority("ADMIN", "STUDENT")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/student/**").hasAnyAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/v1/student").hasAnyAuthority("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/api/v1/enroll").hasAnyAuthority("ADMIN","STUDENT")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/enroll").hasAnyAuthority("ADMIN", "STUDENT")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/enroll/**").hasAnyAuthority("ADMIN", "TEACHER", "STUDENT")
                         .requestMatchers(HttpMethod.GET, "/api/v1/enroll/**").hasAnyAuthority("ADMIN", "STUDENT")
                         .requestMatchers(HttpMethod.GET, "/api/v1/enroll").hasAnyAuthority("ADMIN")
 
-                        .requestMatchers(HttpMethod.POST, "/api/v1/result").hasAnyAuthority("ADMIN","TEACHER")
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/result/**").hasAnyAuthority("ADMIN","TEACHER")
-                        .requestMatchers(HttpMethod.GET, "/api/v1/result/**").hasAnyAuthority("ADMIN","TEACHER")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/result").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/result/**").hasAnyAuthority("ADMIN", "TEACHER")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/result/**").hasAnyAuthority("ADMIN", "TEACHER")
                         .requestMatchers(HttpMethod.GET, "/api/v1/result").hasAnyAuthority("ADMIN", "TEACHER")
 
                         .anyRequest().authenticated()

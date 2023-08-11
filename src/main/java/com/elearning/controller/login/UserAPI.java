@@ -4,7 +4,6 @@ import com.elearning.dto.helper.ChangePasswordDTO;
 import com.elearning.dto.login.AuthResponseDTO;
 import com.elearning.dto.login.LoginDTO;
 import com.elearning.dto.login.UserDTO;
-import com.elearning.entity.login.UserEntity;
 import com.elearning.exception.helper.Result;
 import com.elearning.exception.helper.StatusCode;
 import com.elearning.jwt.JwtGenerator;
@@ -41,9 +40,6 @@ public class UserAPI {
 
     @PutMapping("/user/{id}")
     public Result changPassword(@PathVariable("id") Long id, @RequestBody ChangePasswordDTO dto) {
-//        if(u.getId() == id || u.getRoles().contains("ADMIN")) {
-//            //accept uer
-//        }
         accountService.changePassword(id, dto);
         return new Result(true, StatusCode.SUCCESS, "Change password success!");
     }
@@ -53,11 +49,6 @@ public class UserAPI {
         UserDTO dto = accountService.findOneUser(id);
         return new Result(true, StatusCode.SUCCESS, "Find one success!", dto);
     }
-//    @GetMapping("/user/{id}")
-//    public Long findOneUser(@PathVariable("id") Long id) {
-//       Long idsa = accountService.findOneUser(id);
-//        return idsa;
-//    }
 
     @GetMapping("/user")
     public Result findAllUser() {

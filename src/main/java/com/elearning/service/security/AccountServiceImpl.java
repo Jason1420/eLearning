@@ -7,6 +7,7 @@ import com.elearning.dto.login.RoleDTO;
 import com.elearning.dto.login.UserDTO;
 import com.elearning.entity.login.RoleEntity;
 import com.elearning.entity.login.UserEntity;
+import com.elearning.exception.Exception400;
 import com.elearning.exception.Exception404;
 import com.elearning.exception.Exception409;
 import com.elearning.repository.StudentRepository;
@@ -42,11 +43,14 @@ public class AccountServiceImpl implements AccountService {
             throw new Exception409("This student code already exists!");
         }
         UserEntity entity = userConverter.toEntity(dto);
-        entity.setPassword(PasswordGenerator.generateRandomPassword(10));
+        String newPassword = PasswordGenerator.generateRandomPassword(10);
+        entity.setPassword(passwordEncoder.encode(newPassword));
         entity.setRoles(roleRepository.findOneByName("STUDENT"));
         studentRepository.save(entity.getStudent());
-        UserEntity savedEntity = userRepository.save(entity);
-        return userConverter.toDTO(savedEntity);
+        userRepository.save(entity);
+        UserDTO returnDTO = userConverter.toDTO(entity);
+        returnDTO.setPassword(newPassword);
+        return returnDTO;
     }
 
     @Override
@@ -55,11 +59,14 @@ public class AccountServiceImpl implements AccountService {
             throw new Exception409("This username already exists!");
         }
         UserEntity entity = userConverter.toEntity(dto);
-        entity.setPassword(PasswordGenerator.generateRandomPassword(10));
+        String newPassword = PasswordGenerator.generateRandomPassword(10);
+        entity.setPassword(passwordEncoder.encode(newPassword));
         entity.setRoles(roleRepository.findOneByName("TEACHER"));
         teacherRepository.save(entity.getTeacher());
-        UserEntity savedEntity = userRepository.save(entity);
-        return userConverter.toDTO(savedEntity);
+        userRepository.save(entity);
+        UserDTO returnDTO = userConverter.toDTO(entity);
+        returnDTO.setPassword(newPassword);
+        return returnDTO;
     }
 
     @Override
@@ -68,9 +75,9 @@ public class AccountServiceImpl implements AccountService {
         if (entity == null) {
             throw new EntityNotFoundException("This user is not found!");
         }
-//        if (!userConverter.checkPassword(entity, dto.getCurrentPassword())) {
-//            throw new Exception400("Wrong current password!");
-//        }
+        if (!userConverter.checkPassword(entity, passwordEncoder.encode(dto.getCurrentPassword()))) {
+            throw new Exception400("Wrong current password!");
+        }
         entity.setPassword(passwordEncoder.encode(dto.getNewPassword()));
         entity.setChangedPassword(true);
     }
@@ -101,14 +108,6 @@ public class AccountServiceImpl implements AccountService {
         }
         return userConverter.toDTO(userRepository.findOneById(id));
     }
-//    public Long findOneUser(Long id) {
-//        UserEntity entity = userRepository.findOneById(id);
-//        Long studentId = (entity.getStudent() != null)?entity.getStudent().getId():0;
-//        Long teacherId = (entity.getTeacher() != null)?entity.getTeacher().getId():0;
-//        Long idz = studentId + teacherId;
-//
-//        return idz;
-//    }
 
     @Override
     public List<UserDTO> findAllUser() {

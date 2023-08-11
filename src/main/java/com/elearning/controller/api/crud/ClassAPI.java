@@ -17,21 +17,22 @@ import java.util.List;
 public class ClassAPI {
     private final ClassService classService;
     private final CustomUserDetailServiceImpl customUserDetailService;
+
     /* CRUD Class */
     @PostMapping
     public Result addClass(@RequestBody CreateClassDTO dto) {
-        if(customUserDetailService.checkUserId(dto.getTeacherId())){
-        ClassDTO savedDTO = classService.addClass(dto);
-        return new Result(true, StatusCode.SUCCESS, "Add success", savedDTO);
+        if (customUserDetailService.checkUserId(dto.getTeacherId())) {
+            ClassDTO savedDTO = classService.addClass(dto);
+            return new Result(true, StatusCode.SUCCESS, "Add success", savedDTO);
         }
         return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }
 
     @PutMapping("/{id}")
     public Result updateClass(@PathVariable Long id, @RequestBody CreateClassDTO dto) {
-        if(customUserDetailService.checkUserId(id)){
-        ClassDTO savedDTO = classService.updateClass(id, dto);
-        return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
+        if (customUserDetailService.checkUserId(id)) {
+            ClassDTO savedDTO = classService.updateClass(id, dto);
+            return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
         }
         return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }
