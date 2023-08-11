@@ -22,7 +22,7 @@ public class TeacherAPI {
         TeacherDTO savedDTO = teacherService.updateTeacher(id, dto);
         return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
         }
-        return new Result(false, StatusCode.FORBIDDEN, "FORBIDDEN");
+        return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }
 
     @DeleteMapping("/{id}")

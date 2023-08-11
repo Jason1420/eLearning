@@ -31,7 +31,7 @@ public class ExamServiceImpl implements ExamService {
             throw new Exception404("This class is not found!");
         }
         return examConverter.toDTO(examRepository.save(
-                new ExamEntity(dto.getName(), dto.getType(), classEntity)));
+                new ExamEntity(dto.getName(), dto.getType(), classEntity, dto.getCoefficient())));
     }
 
     @Override

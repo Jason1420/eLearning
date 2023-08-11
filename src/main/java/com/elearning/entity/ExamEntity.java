@@ -30,6 +30,7 @@ public class ExamEntity {
     @ManyToOne
     @JoinColumn(name = "class_id", referencedColumnName = "id")
     private ClassEntity clas;
+    private Integer coefficient;
 
     public ExamEntity(String name, ExamType type, ClassEntity clas) {
         this.name = name;
@@ -40,5 +41,12 @@ public class ExamEntity {
     public ExamEntity(String name, ExamType type) {
         this.name = name;
         this.type = type;
+    }
+
+    public ExamEntity(String name, ExamType type, ClassEntity clas, Integer coefficient) {
+        this.name = name;
+        this.type = type;
+        this.clas = clas;
+        this.coefficient = coefficient;
     }
 }

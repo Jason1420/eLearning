@@ -28,7 +28,7 @@ public class StudentAPI {
         StudentDTO savedDTO = studentService.updateStudent(id, dto);
         return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
         }
-        return new Result(false, StatusCode.FORBIDDEN, "FORBIDDEN");
+        return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }
 
     @DeleteMapping("/{id}")
@@ -43,7 +43,7 @@ public class StudentAPI {
             StudentDTO studentDTO = studentService.findOneStudent(id);
             return new Result(true, StatusCode.SUCCESS, "Find one success", studentDTO);
         }
-        return new Result(false, StatusCode.FORBIDDEN, "FORBIDDEN");
+        return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }
 
     @GetMapping

@@ -38,17 +38,6 @@ public class AdminServiceImpl implements AdminService {
             throw new Exception404("Student not found with this id");
         }
     }
-
-    public double calculateScore(String examType, double score) {
-        if (examType.equals("MIDTERM_EXAM")) {
-            return score * 0.3;
-        }
-        if (examType.equals("FINAL_EXAM")) {
-            return score * 0.7;
-        }
-        return 0;
-    }
-
     public String statusOfStudent(int totalCredit) {
         if (totalCredit <= 5) {
             return "FIRST_YEAR";
@@ -69,11 +58,11 @@ public class AdminServiceImpl implements AdminService {
         List<List<Object>> listObject = enrollRepository.findResult();
         List<List<Object>> filterByIdStudentList = listObject
                 .stream()
-                .filter(data -> (Long) data.get(0) == 1)
-                .map(data -> {
-                    data.set(4, calculateScore(String.valueOf(data.get(3)), (Double) data.get(4)));
-                    return data;
-                })
+                .filter(data -> (Long) data.get(0) == id)
+//                .map(data -> {
+//                    data.set(4, calculateScore(String.valueOf(data.get(3)), (Double) data.get(4)));
+//                    return data;
+//                })
                 .map(data -> {
                     FinalResultEntity finalResultEntity =
                             finalResultRepository.findByStudentIdAndClassId((Long) data.get(0), (Long) data.get(1));
@@ -98,7 +87,7 @@ public class AdminServiceImpl implements AdminService {
         List<FinalResultEntity> listEntity = finalResultRepository.findAll();
 //        [student_id, class_id, exam_id, exam_type, result_score, subject_credit]
         listEntity.stream()
-                .filter(data -> data.getScore() >= 1.0)
+                .filter(data -> data.getScore() >= 5.0)
                 .forEach(data -> {
                     StudentEntity preEntity = data.getStudent();
                     preEntity.setGPA(0.0);
@@ -106,7 +95,7 @@ public class AdminServiceImpl implements AdminService {
                     studentRepository.save(preEntity);
                 });
         listEntity.stream()
-                .filter(data -> data.getScore() >= 1.0)
+                .filter(data -> data.getScore() >= 5.0)
                 .forEach(data -> {
                     StudentEntity preEntity = data.getStudent();
                     double preScore = preEntity.getGPA() * preEntity.getTotalCredit();

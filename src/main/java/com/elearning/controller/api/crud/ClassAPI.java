@@ -24,7 +24,7 @@ public class ClassAPI {
         ClassDTO savedDTO = classService.addClass(dto);
         return new Result(true, StatusCode.SUCCESS, "Add success", savedDTO);
         }
-        return new Result(false, StatusCode.FORBIDDEN, "FORBIDDEN");
+        return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }
 
     @PutMapping("/{id}")
@@ -33,7 +33,7 @@ public class ClassAPI {
         ClassDTO savedDTO = classService.updateClass(id, dto);
         return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);
         }
-        return new Result(false, StatusCode.FORBIDDEN, "FORBIDDEN");
+        return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }
 
     @DeleteMapping("/{id}")

@@ -14,5 +14,5 @@ public class ExamDTO {
     private String name;
     private ExamType type;
     private ClassDTO clas;
-
+    private Integer coefficient;
 }

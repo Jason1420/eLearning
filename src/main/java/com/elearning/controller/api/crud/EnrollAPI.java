@@ -23,7 +23,7 @@ public class EnrollAPI {
         EnrollDTO savedDTO = enrollService.enrollClass(dto);
         return new Result(true, StatusCode.SUCCESS, "Add success", savedDTO);
         }
-        return new Result(false, StatusCode.FORBIDDEN, "FORBIDDEN");
+        return new Result(false, StatusCode.FORBIDDEN, "No permission");
     }
 
     @DeleteMapping("/{id}")

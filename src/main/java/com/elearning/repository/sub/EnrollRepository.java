@@ -20,4 +20,8 @@ public interface EnrollRepository extends JpaRepository<EnrollEntity, Long> {
             "INNER JOIN SubjectEntity s " +
             "ON c.subject.id = s.id")
     List<List<Object>> findResult();
+
+    @Query("SELECT e FROM EnrollEntity e " +
+            "WHERE e.student.id = ?1 AND e.clas.id = ?2")
+    EnrollEntity findOneByStudentIdAndClassId(Long id, Long classID);
 }

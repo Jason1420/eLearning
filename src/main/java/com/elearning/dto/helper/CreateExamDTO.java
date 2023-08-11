@@ -12,4 +12,5 @@ public class CreateExamDTO {
     private String name;
     private ExamType type;
     private Long classID;
+    private Integer coefficient;
 }
