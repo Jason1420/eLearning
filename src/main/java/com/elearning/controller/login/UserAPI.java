@@ -30,13 +30,18 @@ public class UserAPI {
     @PostMapping("/register/student")
     public Result createStudentAccount(@RequestBody UserDTO dto) {
         UserDTO savedDTO = accountService.createStudentAccount(dto);
-        return new Result(true, StatusCode.SUCCESS, "Create student success!", savedDTO);
+        return new Result(true, StatusCode.SUCCESS,
+                "Create teacher success, please change password and check email to enable account!", savedDTO);
     }
-
+    @GetMapping(path = "/confirm")
+    public String confirm(@RequestParam("token") String token) {
+        return accountService.confirmToken(token);
+    }
     @PostMapping("/register/teacher")
     public Result createTeacherAccount(@RequestBody UserDTO dto) {
         UserDTO savedDTO = accountService.createTeacherAccount(dto);
-        return new Result(true, StatusCode.SUCCESS, "Create teacher success!", savedDTO);
+        return new Result(true, StatusCode.SUCCESS,
+                "Create teacher success, please change password and check email to enable account!", savedDTO);
     }
 
     @PutMapping("/user/{id}")

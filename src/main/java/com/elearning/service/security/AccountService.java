@@ -26,4 +26,6 @@ public interface AccountService {
     RoleDTO addNewRole(String role);
 
     UserEntity loadUserByUsername(String username);
+
+    String confirmToken(String token);
 }
