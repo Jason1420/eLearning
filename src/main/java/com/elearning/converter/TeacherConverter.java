@@ -2,9 +2,12 @@ package com.elearning.converter;
 
 import com.elearning.dto.TeacherDTO;
 import com.elearning.entity.TeacherEntity;
+import com.elearning.helper.Gender;
 import com.elearning.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.sql.Date;
 
 @Component
 @AllArgsConstructor
@@ -16,8 +19,8 @@ public class TeacherConverter {
         return new TeacherDTO((entity.getId() != null) ? entity.getId() : null,
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getDateOfBirth(),
-                entity.getGender(),
+                entity.getDateOfBirth().toString().substring(0,10),
+                entity.getGender().toString(),
                 entity.getEmail(),
                 entity.getPhoneNumber(),
                 (entity.getDepartment() != null) ?
@@ -27,8 +30,8 @@ public class TeacherConverter {
     public TeacherEntity toEntity(TeacherDTO dto) {
         return new TeacherEntity(dto.getFirstName(),
                 dto.getLastName(),
-                dto.getDateOfBirth(),
-                dto.getGender(),
+                Date.valueOf(dto.getDateOfBirth()),
+                Gender.valueOf(dto.getGender()),
                 dto.getEmail(),
                 dto.getPhoneNumber(),
                 (dto.getDepartment() != null) ?
@@ -39,8 +42,8 @@ public class TeacherConverter {
         return new TeacherEntity(oldEntity.getId(),
                 dto.getFirstName(),
                 dto.getLastName(),
-                dto.getDateOfBirth(),
-                dto.getGender(),
+                Date.valueOf(dto.getDateOfBirth()),
+                Gender.valueOf(dto.getGender()),
                 dto.getEmail(),
                 dto.getPhoneNumber(),
                 (dto.getDepartment() != null) ?

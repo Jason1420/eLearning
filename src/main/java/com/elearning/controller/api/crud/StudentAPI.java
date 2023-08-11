@@ -7,6 +7,7 @@ import com.elearning.filecsv.Helper;
 import com.elearning.service.StudentService;
 import com.elearning.service.security.AccountService;
 import com.elearning.service.security.CustomUserDetailServiceImpl;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
@@ -27,12 +28,11 @@ import java.util.Map;
 @AllArgsConstructor
 public class StudentAPI {
     private final StudentService studentService;
-    private final AccountService accountService;
     private final CustomUserDetailServiceImpl customUserDetailService;
     private Helper helper;
 
     @PutMapping("/{id}")
-    public Result updateStudent(@PathVariable Long id, @RequestBody StudentDTO dto) {
+    public Result updateStudent(@PathVariable Long id, @RequestBody @Valid StudentDTO dto) {
         if (customUserDetailService.checkUserId(id)) {
             StudentDTO savedDTO = studentService.updateStudent(id, dto);
             return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);

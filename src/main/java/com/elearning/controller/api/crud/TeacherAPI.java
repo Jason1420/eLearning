@@ -5,6 +5,7 @@ import com.elearning.exception.helper.Result;
 import com.elearning.exception.helper.StatusCode;
 import com.elearning.service.TeacherService;
 import com.elearning.service.security.CustomUserDetailServiceImpl;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +19,7 @@ public class TeacherAPI {
     private final CustomUserDetailServiceImpl customUserDetailService;
 
     @PutMapping("/{id}")
-    public Result updateTeacher(@PathVariable Long id, @RequestBody TeacherDTO dto) {
+    public Result updateTeacher(@PathVariable Long id, @RequestBody @Valid TeacherDTO dto) {
         if (customUserDetailService.checkUserId(id)) {
             TeacherDTO savedDTO = teacherService.updateTeacher(id, dto);
             return new Result(true, StatusCode.SUCCESS, "Update success", savedDTO);

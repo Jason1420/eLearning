@@ -2,9 +2,12 @@ package com.elearning.converter;
 
 import com.elearning.dto.StudentDTO;
 import com.elearning.entity.StudentEntity;
+import com.elearning.helper.Gender;
 import com.elearning.repository.DepartmentRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.sql.Date;
 
 @Component
 @AllArgsConstructor
@@ -17,8 +20,8 @@ public class StudentConverter {
                 entity.getCode(),
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getDateOfBirth(),
-                entity.getGender(),
+                entity.getDateOfBirth().toString().substring(0,10),
+                entity.getGender().toString(),
                 entity.getEmail(),
                 entity.getPhoneNumber(),
                 entity.getAddress(),
@@ -30,8 +33,8 @@ public class StudentConverter {
         return new StudentEntity(dto.getCode(),
                 dto.getFirstName(),
                 dto.getLastName(),
-                dto.getDateOfBirth(),
-                dto.getGender(),
+                Date.valueOf(dto.getDateOfBirth()),
+                Gender.valueOf(dto.getGender()),
                 dto.getEmail(),
                 dto.getPhoneNumber(),
                 dto.getAddress(),
@@ -44,8 +47,8 @@ public class StudentConverter {
                 dto.getCode(),
                 dto.getFirstName(),
                 dto.getLastName(),
-                dto.getDateOfBirth(),
-                dto.getGender(),
+                Date.valueOf(dto.getDateOfBirth()),
+                Gender.valueOf(dto.getGender()),
                 dto.getEmail(),
                 dto.getPhoneNumber(),
                 dto.getAddress(),

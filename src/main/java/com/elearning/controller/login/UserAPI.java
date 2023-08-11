@@ -9,6 +9,7 @@ import com.elearning.exception.helper.StatusCode;
 import com.elearning.jwt.JwtGenerator;
 import com.elearning.repository.security.UserRepository;
 import com.elearning.service.security.AccountService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -39,7 +40,7 @@ public class UserAPI {
     }
 
     @PutMapping("/user/{id}")
-    public Result changPassword(@PathVariable("id") Long id, @RequestBody ChangePasswordDTO dto) {
+    public Result changPassword(@PathVariable("id") Long id, @RequestBody @Valid ChangePasswordDTO dto) {
         accountService.changePassword(id, dto);
         return new Result(true, StatusCode.SUCCESS, "Change password success!");
     }
