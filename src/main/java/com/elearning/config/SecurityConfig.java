@@ -32,6 +32,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/confirm").permitAll()
+                        .requestMatchers("/verify").permitAll()
                         .requestMatchers("/admin").hasAnyAuthority("ADMIN")
                         .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
                         .requestMatchers("/register/**").hasAnyAuthority("ADMIN")

@@ -4,6 +4,10 @@ import com.elearning.dto.helper.ChangePasswordDTO;
 import com.elearning.dto.login.AuthResponseDTO;
 import com.elearning.dto.login.LoginDTO;
 import com.elearning.dto.login.UserDTO;
+import com.elearning.email.EmailSender;
+import com.elearning.email.token.ConfirmationToken;
+import com.elearning.email.token.ConfirmationTokenService;
+import com.elearning.entity.login.UserEntity;
 import com.elearning.exception.helper.Result;
 import com.elearning.exception.helper.StatusCode;
 import com.elearning.jwt.JwtGenerator;
@@ -17,7 +21,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @AllArgsConstructor
@@ -26,7 +32,8 @@ public class UserAPI {
     private final AuthenticationManager authenticationManager;
     private final JwtGenerator jwtGenerator;
     private final UserRepository userRepository;
-
+    private final EmailSender emailSender;
+    private final ConfirmationTokenService confirmationTokenService;
     @PostMapping("/register/student")
     public Result createStudentAccount(@RequestBody UserDTO dto) {
         UserDTO savedDTO = accountService.createStudentAccount(dto);
@@ -69,5 +76,28 @@ public class UserAPI {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generateToken(authentication);
         return new Result(true, StatusCode.SUCCESS, "Login success", new AuthResponseDTO(token).toString());
+    }
+    @PostMapping("/verify")
+    public Result verify(@RequestBody LoginDTO loginDTO) {
+        UserEntity userEntity = userRepository.findByUsername(loginDTO.getUsername());
+        if (userEntity.isEnabled()) {
+            return new Result(true, StatusCode.SUCCESS, "Account had verified");
+        } else {
+            String token = UUID.randomUUID().toString();
+
+            ConfirmationToken confirmationToken = new ConfirmationToken(
+                    token,
+                    LocalDateTime.now(),
+                    LocalDateTime.now().plusMinutes(15),
+                    userEntity
+            );
+
+            confirmationTokenService.saveConfirmationToken(
+                    confirmationToken);
+            String link = "http://localhost:9090/confirm?token=" + token;
+            emailSender.send(userEntity.getEmail(),
+                    accountService.buildEmail(userEntity.getUsername(),link, "PROTECTED"));
+        }
+        return new Result(true, StatusCode.SUCCESS, "Please check your email and click the link to verify your account!");
     }
 }

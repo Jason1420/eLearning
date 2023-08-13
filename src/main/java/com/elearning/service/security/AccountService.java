@@ -28,4 +28,5 @@ public interface AccountService {
     UserEntity loadUserByUsername(String username);
 
     String confirmToken(String token);
+    String buildEmail(String name, String link, String password);
 }

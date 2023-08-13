@@ -19,8 +19,8 @@ public class TeacherConverter {
         return new TeacherDTO((entity.getId() != null) ? entity.getId() : null,
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getDateOfBirth().toString().substring(0,10),
-                entity.getGender().toString(),
+                (entity.getDateOfBirth() != null)?entity.getDateOfBirth().toString().substring(0,10):null,
+                (entity.getGender() != null)?entity.getGender().toString():null,
                 entity.getEmail(),
                 entity.getPhoneNumber(),
                 (entity.getDepartment() != null) ?

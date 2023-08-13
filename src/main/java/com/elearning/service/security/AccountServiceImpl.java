@@ -161,6 +161,7 @@ public class AccountServiceImpl implements AccountService {
         userRepository.enableUser(confirmationToken.getUser().getUsername());
         return "confirmed";
     }
+    @Override
     public String buildEmail(String name, String link, String password) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
