@@ -1,6 +1,5 @@
 package com.elearning.filecsv;
 
-import com.elearning.entity.DepartmentEntity;
 import com.elearning.entity.StudentEntity;
 import com.elearning.helper.Gender;
 import com.elearning.helper.StudentStatus;
@@ -21,8 +20,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalTime;
-import java.util.*;
-import java.util.random.RandomGenerator;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 @Component
 @AllArgsConstructor
@@ -87,10 +88,10 @@ public class Helper {
 //                            break;
                         case 1:
 
-                            s.setCode(studentRepository.findOneByCode(cell.getStringCellValue()) == null?
+                            s.setCode(studentRepository.findOneByCode(cell.getStringCellValue()) == null ?
 //                                    cell.getStringCellValue():"STD"+ new Random().nextInt(100000));
-                            cell.getStringCellValue():"STD"+ String.valueOf(
-                                    LocalTime.now()).replaceAll("[:|.]",""));
+                                    cell.getStringCellValue() : "STD" + String.valueOf(
+                                    LocalTime.now()).replaceAll("[:|.]", ""));
                             break;
                         case 2:
                             s.setFirstName(cell.getStringCellValue());
@@ -162,19 +163,19 @@ public class Helper {
             for (StudentEntity student : list) {
                 Row dataRow = sheet.createRow(rowIndex);
                 rowIndex++;
-                dataRow.createCell(0).setCellValue(student.getId()!=null?student.getId():0);
-                dataRow.createCell(1).setCellValue(student.getCode()!=null?student.getCode():"");
-                dataRow.createCell(2).setCellValue(student.getFirstName()!=null?student.getFirstName():"");
-                dataRow.createCell(3).setCellValue(student.getLastName()!=null?student.getLastName():"");
-                dataRow.createCell(4).setCellValue(student.getGender()!=null?student.getGender().toString():"");
-                dataRow.createCell(5).setCellValue(student.getDateOfBirth()!=null?student.getDateOfBirth():new Date());
-                dataRow.createCell(6).setCellValue(student.getDepartment()!=null?student.getDepartment().getName().toString():"");
-                dataRow.createCell(7).setCellValue(student.getPhoneNumber()!=null?student.getPhoneNumber():"");
-                dataRow.createCell(8).setCellValue(student.getEmail()!=null?student.getEmail():"");
-                dataRow.createCell(9).setCellValue(student.getAddress()!=null?student.getAddress():"");
-                dataRow.createCell(10).setCellValue((Double)student.getGPA()!=null?student.getGPA():0);
-                dataRow.createCell(11).setCellValue((Integer)student.getTotalCredit()!=null?student.getTotalCredit():0);
-                dataRow.createCell(12).setCellValue(student.getStatus()!=null?student.getStatus().toString():"");
+                dataRow.createCell(0).setCellValue(student.getId() != null ? student.getId() : 0);
+                dataRow.createCell(1).setCellValue(student.getCode() != null ? student.getCode() : "");
+                dataRow.createCell(2).setCellValue(student.getFirstName() != null ? student.getFirstName() : "");
+                dataRow.createCell(3).setCellValue(student.getLastName() != null ? student.getLastName() : "");
+                dataRow.createCell(4).setCellValue(student.getGender() != null ? student.getGender().toString() : "");
+                dataRow.createCell(5).setCellValue(student.getDateOfBirth() != null ? student.getDateOfBirth() : new Date());
+                dataRow.createCell(6).setCellValue(student.getDepartment() != null ? student.getDepartment().getName().toString() : "");
+                dataRow.createCell(7).setCellValue(student.getPhoneNumber() != null ? student.getPhoneNumber() : "");
+                dataRow.createCell(8).setCellValue(student.getEmail() != null ? student.getEmail() : "");
+                dataRow.createCell(9).setCellValue(student.getAddress() != null ? student.getAddress() : "");
+                dataRow.createCell(10).setCellValue((Double) student.getGPA() != null ? student.getGPA() : 0);
+                dataRow.createCell(11).setCellValue((Integer) student.getTotalCredit() != null ? student.getTotalCredit() : 0);
+                dataRow.createCell(12).setCellValue(student.getStatus() != null ? student.getStatus().toString() : "");
             }
             workbook.write(out);
             return new ByteArrayInputStream(out.toByteArray());

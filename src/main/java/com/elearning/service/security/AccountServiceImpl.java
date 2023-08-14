@@ -125,7 +125,8 @@ public class AccountServiceImpl implements AccountService {
                 .map(userConverter::toDTO)
                 .collect(Collectors.toList());
     }
-    public void generateEmail(UserEntity userEntity, String password){
+
+    public void generateEmail(UserEntity userEntity, String password) {
         String token = UUID.randomUUID().toString();
         ConfirmationToken confirmationToken = new ConfirmationToken(
                 token,
@@ -141,6 +142,7 @@ public class AccountServiceImpl implements AccountService {
                 buildEmail(userEntity.getUsername(), link, password));
 
     }
+
     @Override
     @Transactional
     public String confirmToken(String token) {
@@ -161,6 +163,7 @@ public class AccountServiceImpl implements AccountService {
         userRepository.enableUser(confirmationToken.getUser().getUsername());
         return "confirmed";
     }
+
     @Override
     public String buildEmail(String name, String link, String password) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
@@ -218,7 +221,7 @@ public class AccountServiceImpl implements AccountService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering, your password is <strong>"+password+"</strong>. \nPlease click on the below link to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Activate Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>See you soon</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Thank you for registering, your password is <strong>" + password + "</strong>. \nPlease click on the below link to activate your account: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Activate Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>See you soon</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +

@@ -1,7 +1,6 @@
 package com.elearning.dto;
 
 import com.elearning.dto.login.UserDTO;
-import com.elearning.helper.Gender;
 import com.elearning.helper.StudentStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,8 +8,6 @@ import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.Date;
 
 @Data
 @AllArgsConstructor

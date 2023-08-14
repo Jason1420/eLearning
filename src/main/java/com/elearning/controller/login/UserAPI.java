@@ -34,16 +34,19 @@ public class UserAPI {
     private final UserRepository userRepository;
     private final EmailSender emailSender;
     private final ConfirmationTokenService confirmationTokenService;
+
     @PostMapping("/register/student")
     public Result createStudentAccount(@RequestBody UserDTO dto) {
         UserDTO savedDTO = accountService.createStudentAccount(dto);
         return new Result(true, StatusCode.SUCCESS,
                 "Create teacher success, please change password and check email to enable account!", savedDTO);
     }
+
     @GetMapping(path = "/confirm")
     public String confirm(@RequestParam("token") String token) {
         return accountService.confirmToken(token);
     }
+
     @PostMapping("/register/teacher")
     public Result createTeacherAccount(@RequestBody UserDTO dto) {
         UserDTO savedDTO = accountService.createTeacherAccount(dto);
@@ -77,6 +80,7 @@ public class UserAPI {
         String token = jwtGenerator.generateToken(authentication);
         return new Result(true, StatusCode.SUCCESS, "Login success", new AuthResponseDTO(token).toString());
     }
+
     @PostMapping("/verify")
     public Result verify(@RequestBody LoginDTO loginDTO) {
         UserEntity userEntity = userRepository.findByUsername(loginDTO.getUsername());
@@ -96,7 +100,7 @@ public class UserAPI {
                     confirmationToken);
             String link = "http://localhost:9090/confirm?token=" + token;
             emailSender.send(userEntity.getEmail(),
-                    accountService.buildEmail(userEntity.getUsername(),link, "PROTECTED"));
+                    accountService.buildEmail(userEntity.getUsername(), link, "PROTECTED"));
         }
         return new Result(true, StatusCode.SUCCESS, "Please check your email and click the link to verify your account!");
     }

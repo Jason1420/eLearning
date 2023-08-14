@@ -20,7 +20,7 @@ public class StudentConverter {
                 entity.getCode(),
                 entity.getFirstName(),
                 entity.getLastName(),
-                entity.getDateOfBirth().toString().substring(0,10),
+                entity.getDateOfBirth().toString().substring(0, 10),
                 entity.getGender().toString(),
                 entity.getEmail(),
                 entity.getPhoneNumber(),

@@ -7,7 +7,6 @@ import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.info.License;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import io.swagger.v3.oas.annotations.servers.Server;
 
@@ -17,7 +16,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
                         name = "Ehbu",
                         email = "1812081.hai@gmail.com",
                         url = "https://www.linkedin.com/in/haitruong1420/"
-                ),description = "OpenAPI document for Spring Security",
+                ), description = "OpenAPI document for Spring Security",
                 title = "OpenAPI specification - Ehbu",
                 version = "1.0",
                 license = @License(
@@ -34,7 +33,7 @@ import io.swagger.v3.oas.annotations.servers.Server;
         },
         security = {
                 @SecurityRequirement(
-                        name="bearerAuth"
+                        name = "bearerAuth"
                 )
         }
 )
