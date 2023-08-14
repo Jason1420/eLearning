@@ -1,5 +1,6 @@
 package com.elearning;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
